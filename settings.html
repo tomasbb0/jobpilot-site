@@ -1,0 +1,1467 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JobPilot AI — Settings</title>
+  <style>
+    /* Login gate - hide content until authenticated */
+    .login-gate { display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:60vh; text-align:center; padding:40px; }
+    .login-gate h2 { font-size:24px; font-weight:700; margin-bottom:8px; }
+    .login-gate p { color:#6b7280; font-size:14px; margin-bottom:24px; max-width:400px; }
+    .login-gate .login-btn { display:inline-flex; align-items:center; gap:8px; padding:12px 24px; background:#10b981; color:white; border:none; border-radius:10px; font-size:14px; font-weight:600; cursor:pointer; transition:background 0.15s; }
+    .login-gate .login-btn:hover { background:#059669; }
+    .app-content { display:none; }
+    .app-content.authenticated { display:block; }
+  </style>
+    <link rel="stylesheet" href="settings.css?v=1.2" />
+    <link
+      rel="icon"
+      href="https://jobpilot.pt/favicon.ico"
+      type="image/x-icon"
+    />
+  </head>
+  <body>
+    <!-- Connection Banner -->
+    <div id="connectionBanner" class="connection-banner connecting">
+      <span class="connection-dot"></span>
+      <span id="connectionText">Connecting to JobPilot AI extension...</span>
+      <span
+        style="margin-left: auto; font-size: 11px; opacity: 0.7"
+        id="connectionMeta"
+      ></span>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <a href="/" title="Back to Home" style="display:flex; align-items:center; justify-content:center; text-decoration:none; color:#6b7280; margin-right:12px; padding:6px; border-radius:6px; transition:background 0.15s; cursor:pointer;" onmouseover="this.style.background='rgba(0,0,0,0.05)'" onmouseout="this.style.background='transparent'">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        </a>
+        <div class="header-logo">J</div>
+        <h1>JobPilot <span>AI</span> | Settings</h1>
+      </div>
+      <div class="header-actions">
+        <button
+          class="btn btn-outline btn-sm"
+          id="refreshBtn"
+          title="Re-sync from extension"
+        >
+          <svg
+            width="14"
+            height="14"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+            />
+          </svg>
+          Sync
+        </button>
+        <button class="btn btn-green btn-sm" id="saveAllBtn">
+          <svg
+            width="14"
+            height="14"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M5 13l4 4L19 7"
+            />
+          </svg>
+          Save All
+        </button>
+      </div>
+    </header>
+
+    <!-- Login Gate -->
+  <div class="login-gate" id="loginGate">
+    <div class="header-logo" style="width:64px; height:64px; border-radius:16px; margin-bottom:20px;">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+    </div>
+    <h2>JobPilot AI Settings</h2>
+    <p>Sign in with the JobPilot AI extension to manage your profile, timeline, and preferences from this page.</p>
+    <p style="font-size:12px; color:#9ca3af; margin-bottom:16px;">Make sure the extension is installed and you're signed in.</p>
+    <button class="login-btn" id="loginCheckBtn">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      Connect to Extension
+    </button>
+  </div>
+
+  <div class="app-content" id="appContent">
+  <div class="layout">
+      <!-- Tabs -->
+      <div class="tabs" id="tabsBar">
+        <button class="tab active" data-tab="parameters">
+          <svg
+            width="14"
+            height="14"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+            />
+          </svg>
+          Parameters
+        </button>
+        <button class="tab" data-tab="ai-settings">
+          <svg
+            width="14"
+            height="14"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+            />
+          </svg>
+          AI Providers
+        </button>
+        <button class="tab" data-tab="assistant">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+          Assistant
+        </button>
+        <button class="tab" data-tab="docs">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          Docs
+        </button>
+        <button class="tab" data-tab="jobs4u">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          Jobs4U
+        </button>
+        <button class="tab" data-tab="timeline">
+          <svg
+            width="14"
+            height="14"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+          Timeline
+        </button>
+        <button class="tab" data-tab="tracker">
+          <svg
+            width="14"
+            height="14"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+            />
+          </svg>
+          Tracker
+        </button>
+        <button class="tab" data-tab="learned">
+          <svg
+            width="14"
+            height="14"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+            />
+          </svg>
+          Learned
+        </button>
+        <button class="tab" data-tab="settings">
+          <svg
+            width="14"
+            height="14"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.573-1.066z"
+            />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
+          Settings
+        </button>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- PARAMETERS TAB                                  -->
+      <!-- ═══════════════════════════════════════════════ -->
+      <div class="tab-content active" id="tab-parameters">
+        <!-- Personal Info -->
+        <div class="card">
+          <div class="card-header" data-section="personal">
+            <h3>
+              <svg
+                width="16"
+                height="16"
+                fill="none"
+                stroke="var(--green)"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                />
+              </svg>
+              Personal Info
+            </h3>
+            <svg
+              class="chevron"
+              width="16"
+              height="16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="field-grid">
+              <div class="field-group">
+                <label>First Name</label>
+                <input type="text" data-key="firstName" placeholder="John" />
+              </div>
+              <div class="field-group">
+                <label>Last Name</label>
+                <input type="text" data-key="lastName" placeholder="Doe" />
+              </div>
+              <div class="field-group">
+                <label>Email</label>
+                <input
+                  type="email"
+                  data-key="email"
+                  placeholder="john@example.com"
+                />
+              </div>
+              <div class="field-group">
+                <label>Phone</label>
+                <input
+                  type="tel"
+                  data-key="phone"
+                  placeholder="+1 555 123 4567"
+                />
+              </div>
+              <div class="field-group">
+                <label>City</label>
+                <input type="text" data-key="city" placeholder="New York" />
+              </div>
+              <div class="field-group">
+                <label>Country</label>
+                <input
+                  type="text"
+                  data-key="country"
+                  placeholder="United States"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Experience -->
+        <div class="card">
+          <div class="card-header" data-section="experience">
+            <h3>
+              <svg
+                width="16"
+                height="16"
+                fill="none"
+                stroke="var(--green)"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                />
+              </svg>
+              Experience
+            </h3>
+            <svg
+              class="chevron"
+              width="16"
+              height="16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="field-grid">
+              <div class="field-group">
+                <label>Current Company</label>
+                <input
+                  type="text"
+                  data-key="currentCompany"
+                  placeholder="Acme Corp"
+                />
+              </div>
+              <div class="field-group">
+                <label>Current Title</label>
+                <input
+                  type="text"
+                  data-key="currentTitle"
+                  placeholder="Software Engineer"
+                />
+              </div>
+              <div class="field-group">
+                <label>Years of Experience</label>
+                <input type="text" data-key="yearsExperience" placeholder="5" />
+              </div>
+              <div class="field-group">
+                <label>Work Authorization</label>
+                <input
+                  type="text"
+                  data-key="workAuth"
+                  placeholder="Authorized to work"
+                />
+              </div>
+              <div class="field-group">
+                <label>Sponsorship Needed</label>
+                <input type="text" data-key="sponsorship" placeholder="No" />
+              </div>
+              <div class="field-group">
+                <label>Countries Authorized</label>
+                <input
+                  type="text"
+                  data-key="workCountries"
+                  placeholder="US, UK, EU"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Education -->
+        <div class="card">
+          <div class="card-header" data-section="education">
+            <h3>
+              <svg
+                width="16"
+                height="16"
+                fill="none"
+                stroke="var(--green)"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M12 14l9-5-9-5-9 5 9 5z"
+                />
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"
+                />
+              </svg>
+              Education
+            </h3>
+            <svg
+              class="chevron"
+              width="16"
+              height="16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="field-grid">
+              <div class="field-group">
+                <label>University</label>
+                <input type="text" data-key="university" placeholder="MIT" />
+              </div>
+              <div class="field-group">
+                <label>Degree</label>
+                <input
+                  type="text"
+                  data-key="degree"
+                  placeholder="BSc Computer Science"
+                />
+              </div>
+              <div class="field-group">
+                <label>Graduation Year</label>
+                <input type="text" data-key="gradYear" placeholder="2023" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Links -->
+        <div class="card">
+          <div class="card-header" data-section="links">
+            <h3>
+              <svg
+                width="16"
+                height="16"
+                fill="none"
+                stroke="var(--green)"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+                />
+              </svg>
+              Links
+            </h3>
+            <svg
+              class="chevron"
+              width="16"
+              height="16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="field-grid">
+              <div class="field-group">
+                <label>LinkedIn</label>
+                <input
+                  type="url"
+                  data-key="linkedin"
+                  placeholder="https://linkedin.com/in/..."
+                />
+              </div>
+              <div class="field-group">
+                <label>Website</label>
+                <input
+                  type="url"
+                  data-key="website"
+                  placeholder="https://yoursite.com"
+                />
+              </div>
+              <div class="field-group">
+                <label>GitHub</label>
+                <input
+                  type="url"
+                  data-key="github"
+                  placeholder="https://github.com/..."
+                />
+              </div>
+              <div class="field-group">
+                <label>Twitter / X</label>
+                <input
+                  type="url"
+                  data-key="twitter"
+                  placeholder="https://x.com/..."
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Other -->
+        <div class="card">
+          <div class="card-header" data-section="other">
+            <h3>
+              <svg
+                width="16"
+                height="16"
+                fill="none"
+                stroke="var(--green)"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
+                />
+              </svg>
+              Other
+            </h3>
+            <svg
+              class="chevron"
+              width="16"
+              height="16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="field-grid">
+              <div class="field-group">
+                <label>How Did You Hear About Us</label>
+                <input
+                  type="text"
+                  data-key="heardAbout"
+                  placeholder="LinkedIn"
+                />
+              </div>
+              <div class="field-group">
+                <label>Salary Expectations</label>
+                <input
+                  type="text"
+                  data-key="salary"
+                  placeholder="$100,000 - $120,000"
+                />
+              </div>
+              <div class="field-group">
+                <label>Earliest Start Date</label>
+                <input
+                  type="text"
+                  data-key="startDate"
+                  placeholder="Immediately"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Custom Parameters -->
+        <div class="card">
+          <div class="card-header" data-section="custom">
+            <h3>
+              <svg
+                width="16"
+                height="16"
+                fill="none"
+                stroke="var(--purple)"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                />
+              </svg>
+              Custom Parameters
+            </h3>
+            <svg
+              class="chevron"
+              width="16"
+              height="16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </div>
+          <div class="card-body">
+            <div id="customParamsList" class="field-grid"></div>
+            <div style="margin-top: 12px">
+              <button class="btn btn-outline btn-sm" id="addCustomParamBtn">
+                <svg
+                  width="12"
+                  height="12"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M12 6v12m6-6H6"
+                  />
+                </svg>
+                Add Parameter
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- AI PROVIDERS TAB                                -->
+      <!-- ═══════════════════════════════════════════════ -->
+      <div class="tab-content" id="tab-ai-settings">
+        <div class="card">
+          <div class="card-header">
+            <h3>
+              <svg
+                width="16"
+                height="16"
+                fill="none"
+                stroke="var(--purple)"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M13 10V3L4 14h7v7l9-11h-7z"
+                />
+              </svg>
+              AI Provider API Keys
+            </h3>
+          </div>
+          <div class="card-body">
+            <p
+              style="
+                font-size: 12px;
+                color: var(--text-muted);
+                margin-bottom: 16px;
+              "
+            >
+              Add API keys for AI features like cover letter generation and
+              smart field filling. Google Gemini has a free tier!
+            </p>
+            <div class="field-grid single">
+              <div class="field-group">
+                <label>OpenAI API Key</label>
+                <div class="api-key-input">
+                  <input
+                    type="password"
+                    data-key="openaiKey"
+                    placeholder="sk-..."
+                  />
+                  <button class="test-btn" data-provider="openai">Test</button>
+                </div>
+              </div>
+              <div class="field-group">
+                <label>Anthropic API Key</label>
+                <div class="api-key-input">
+                  <input
+                    type="password"
+                    data-key="anthropicKey"
+                    placeholder="sk-ant-..."
+                  />
+                  <button class="test-btn" data-provider="anthropic">
+                    Test
+                  </button>
+                </div>
+              </div>
+              <div class="field-group">
+                <label>Google Gemini API Key</label>
+                <div class="api-key-input">
+                  <input
+                    type="password"
+                    data-key="googleAiKey"
+                    placeholder="AIza..."
+                  />
+                  <button class="test-btn" data-provider="google">Test</button>
+                </div>
+              </div>
+              <div class="field-group">
+                <label>Preferred Provider</label>
+                <select data-key="preferredAiProvider">
+                  <option value="">Auto (use any available)</option>
+                  <option value="openai">OpenAI</option>
+                  <option value="anthropic">Anthropic</option>
+                  <option value="google">Google Gemini</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CV / Context -->
+        <div class="card">
+          <div class="card-header" data-section="cv-context">
+            <h3>
+              <svg
+                width="16"
+                height="16"
+                fill="none"
+                stroke="var(--purple)"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                />
+              </svg>
+              CV / Context
+            </h3>
+            <svg
+              class="chevron"
+              width="16"
+              height="16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="field-grid single">
+              <div class="field-group">
+                <label
+                  >CV / Resume Text
+                  <small style="font-weight: 400; text-transform: none"
+                    >(paste your CV content here — used for AI features)</small
+                  ></label
+                >
+                <textarea
+                  data-key="cvContent"
+                  rows="8"
+                  placeholder="Paste your CV/resume text here..."
+                ></textarea>
+              </div>
+              <div class="field-group">
+                <label
+                  >Additional Context
+                  <small style="font-weight: 400; text-transform: none"
+                    >(anything else the AI should know about you)</small
+                  ></label
+                >
+                <textarea
+                  data-key="userContext"
+                  rows="4"
+                  placeholder="E.g., career goals, preferences, strengths..."
+                ></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- ASSISTANT TAB                                    -->
+      <!-- ═══════════════════════════════════════════════ -->
+      <div class="tab-content" id="tab-assistant">
+        <div class="card">
+          <div class="card-header" style="cursor: default">
+            <h3>
+              <svg width="16" height="16" fill="none" stroke="var(--purple)" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+              AI Assistant
+            </h3>
+          </div>
+          <div class="card-body">
+            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">
+              Your AI-powered guide. Ask questions, attach your CV, get setup help &mdash; real answers powered by your configured AI provider.
+            </p>
+            <!-- Chat messages -->
+            <div id="assistantChatMessages" style="min-height: 200px; max-height: 400px; overflow-y: auto; border: 1px solid var(--border); border-radius: 10px; padding: 12px; margin-bottom: 12px; background: var(--bg-secondary, #fafafa); display: flex; flex-direction: column; gap: 8px;">
+              <div style="background: linear-gradient(135deg, #f5f3ff, #ede9fe); border: 1px solid #ddd6fe; border-radius: 10px; padding: 10px 12px; font-size: 12px; line-height: 1.5; color: #333; max-width: 90%;">
+                Hi! I'm your AI assistant. Ask me anything about the extension, your job search, or attach a document using the &#x1F4CE; button.
+              </div>
+            </div>
+            <!-- Input area -->
+            <div style="display: flex; gap: 8px; align-items: flex-end;">
+              <label for="assistantFileInput" style="padding: 8px; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; background: white; flex-shrink: 0; transition: border-color 0.2s;" title="Attach a file (PDF/DOCX/TXT)">
+                <svg width="14" height="14" fill="none" stroke="var(--purple)" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg>
+              </label>
+              <input type="file" id="assistantFileInput" accept=".pdf,.docx,.doc,.txt,.rtf" style="display: none" />
+              <textarea id="assistantChatInput" placeholder="Ask anything, attach a CV, get help..." rows="1" style="flex: 1; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 12px; font-family: inherit; resize: none; min-height: 36px; max-height: 80px;"></textarea>
+              <button id="assistantChatSend" class="btn btn-sm" style="padding: 8px; background: linear-gradient(135deg, #8b5cf6, #6d28d9); color: white; border: none; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none" style="transform: rotate(25deg)"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+              </button>
+            </div>
+            <!-- Quick Actions -->
+            <div style="margin-top: 12px; display: flex; gap: 6px; flex-wrap: wrap;">
+              <div style="font-size: 11px; font-weight: 600; color: var(--text-secondary, #555); margin-bottom: 2px; width: 100%;">Quick Actions</div>
+              <button class="assistant-quick-action btn btn-outline btn-sm" data-action="how-to-use" style="font-size: 10px;">How do I use this?</button>
+              <button class="assistant-quick-action btn btn-outline btn-sm" data-action="setup-ai" style="font-size: 10px;">Set up AI</button>
+              <button class="assistant-quick-action btn btn-outline btn-sm" data-action="cover-letter-tips" style="font-size: 10px;">Cover letter tips</button>
+              <button class="assistant-quick-action btn btn-outline btn-sm" data-action="whats-new" style="font-size: 10px;">What's new?</button>
+            </div>
+          </div>
+        </div>
+        <!-- Pending Items -->
+        <div class="card" id="assistantPendingCard" style="display: none;">
+          <div class="card-header" style="cursor: default;">
+            <h3 style="color: #ef4444;">
+              <svg width="16" height="16" fill="none" stroke="#ef4444" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              Needs Your Attention
+            </h3>
+          </div>
+          <div class="card-body">
+            <div id="assistantPendingList" style="display: flex; flex-direction: column; gap: 6px; font-size: 12px; color: var(--text-secondary, #555);"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- DOCS TAB                                        -->
+      <!-- ═══════════════════════════════════════════════ -->
+      <div class="tab-content" id="tab-docs">
+        <!-- CVs -->
+        <div class="card">
+          <div class="card-header" style="cursor: default">
+            <h3>
+              <svg width="16" height="16" fill="none" stroke="var(--green)" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              Your CVs
+            </h3>
+            <button class="btn btn-outline btn-sm" id="settingsAddCvBtn">+ Add CV</button>
+          </div>
+          <div class="card-body">
+            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Add CVs here. The extension suggests which to use based on job title.</p>
+            <div id="settingsCvList"></div>
+            <div id="settingsCvEmpty" class="empty-state">
+              <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
+              <p>No CVs added yet</p>
+            </div>
+            <input type="file" id="settingsCvFileInput" accept=".pdf,.doc,.docx" style="display: none" />
+          </div>
+        </div>
+        <!-- Cover Letters -->
+        <div class="card">
+          <div class="card-header" style="cursor: default">
+            <h3>
+              <svg width="16" height="16" fill="none" stroke="var(--green)" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+              Cover Letters
+            </h3>
+            <button class="btn btn-outline btn-sm" id="settingsAddClBtn">+ Add</button>
+          </div>
+          <div class="card-body">
+            <div id="settingsClList"></div>
+            <div id="settingsClEmpty" class="empty-state">
+              <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+              <p>No cover letters yet</p>
+            </div>
+            <input type="file" id="settingsClFileInput" accept=".pdf,.doc,.docx,.txt" style="display: none" />
+          </div>
+        </div>
+        <!-- Context Docs -->
+        <div class="card">
+          <div class="card-header" style="cursor: default">
+            <h3>
+              <svg width="16" height="16" fill="none" stroke="var(--purple)" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/></svg>
+              Context Documents
+            </h3>
+            <button class="btn btn-outline btn-sm" id="settingsAddCtxDocBtn">+ Add</button>
+          </div>
+          <div class="card-body">
+            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Add docs about your goals, career story, motivations &mdash; anything the AI should know when writing cover letters and answering questions.</p>
+            <div id="settingsCtxDocList"></div>
+            <div id="settingsCtxDocEmpty" class="empty-state">
+              <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/></svg>
+              <p>No context documents yet</p>
+            </div>
+            <input type="file" id="settingsCtxDocFileInput" accept=".pdf,.doc,.docx,.txt" style="display: none" />
+            <div style="margin-top: 12px;">
+              <textarea id="settingsCtxDocText" rows="4" placeholder="Or type/paste your goals, life story, motivations here..." style="width: 100%; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 12px; resize: vertical; box-sizing: border-box; font-family: inherit;"></textarea>
+              <button class="btn btn-sm" id="settingsSaveCtxDocTextBtn" style="margin-top: 8px; width: 100%; background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: white; border: none;">
+                <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+                Save as Context Doc
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- JOBS4U TAB                                      -->
+      <!-- ═══════════════════════════════════════════════ -->
+      <div class="tab-content" id="tab-jobs4u">
+        <div class="card">
+          <div class="card-header" style="cursor: default">
+            <h3>
+              <svg width="16" height="16" fill="none" stroke="var(--purple)" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              AI Job Curator
+            </h3>
+            <div style="display: flex; gap: 6px;">
+              <button class="btn btn-outline btn-sm" id="settingsJobs4uFiltersBtn">Filters</button>
+              <button class="btn btn-sm" id="settingsJobs4uCalibrateBtn" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: white; border: none;">
+                <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                Set Up with AI
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Jobs scraped from Greenhouse, Lever, Workday, and dedicated APIs for top companies &mdash; curated to match your profile and preferences.</p>
+            <!-- Controls row -->
+            <div style="display: flex; gap: 8px; margin-bottom: 12px; align-items: center;">
+              <div style="flex: 1; position: relative;">
+                <svg width="12" height="12" fill="none" stroke="#999" stroke-width="2" viewBox="0 0 24 24" style="position: absolute; left: 8px; top: 50%; transform: translateY(-50%); pointer-events: none;"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                <input type="text" id="settingsJobs4uSearch" placeholder="Search results..." style="width: 100%; padding: 7px 8px 7px 26px; border: 1px solid var(--border); border-radius: 6px; font-size: 11px; box-sizing: border-box;" />
+              </div>
+              <select id="settingsJobs4uFrequency" data-key="jobs4uFrequency" style="padding: 6px 8px; border: 1px solid var(--border); border-radius: 6px; font-size: 11px;">
+                <option value="1">Every min</option>
+                <option value="60" selected>Hourly</option>
+                <option value="1440">Daily</option>
+                <option value="10080">Weekly</option>
+              </select>
+              <button class="btn btn-outline btn-sm" id="settingsJobs4uRefreshBtn">
+                <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                Update
+              </button>
+            </div>
+            <!-- Job count/status -->
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+              <span style="font-size: 12px; font-weight: 600; color: var(--text);">Jobs curated for you</span>
+              <span style="display: flex; align-items: center; gap: 8px;">
+                <span id="settingsJobs4uLive" style="font-size: 10px; color: #10b981; font-weight: 600; display: none;">
+                  <span style="width: 6px; height: 6px; border-radius: 50%; background: #10b981; display: inline-block; margin-right: 3px;"></span>Live
+                </span>
+                <span id="settingsJobs4uCount" style="font-size: 11px; color: var(--text-muted);">0 jobs</span>
+              </span>
+            </div>
+            <!-- Job list -->
+            <div id="settingsJobs4uList" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; padding-top: 12px;">
+              <div class="empty-state" id="settingsJobs4uEmpty">
+                <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                <p>Set up your filters and click Update to discover jobs.</p>
+              </div>
+            </div>
+            <div style="text-align: center; font-size: 10px; color: var(--text-muted); padding: 8px 0; margin-top: 8px;">
+              <span id="settingsJobs4uLastUpdated"></span>
+              Powered by Greenhouse, Lever &amp; Workday APIs
+            </div>
+          </div>
+        </div>
+
+        <!-- AI Calibrator Modal -->
+        <div id="settingsCalibratorModal" class="modal-overlay">
+          <div class="modal" style="max-width: 500px;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+              <svg width="16" height="16" fill="none" stroke="#8b5cf6" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+              <h3 style="flex: 1; margin: 0; color: #7c3aed;">AI Calibrator</h3>
+              <button id="settingsCalibratorClose" style="background: none; border: none; cursor: pointer; padding: 4px; color: #999;">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+              </button>
+            </div>
+            <div id="settingsCalibratorMessages" style="min-height: 180px; max-height: 400px; overflow-y: auto; padding: 12px; border: 1px solid var(--border); border-radius: 10px; margin-bottom: 12px; background: var(--bg-secondary, #fafafa); display: flex; flex-direction: column; gap: 8px;">
+              <div style="font-size: 12px; color: #999; text-align: center; padding: 30px 12px;">Chat with AI to set up your job filters. The AI will analyse your profile and suggest roles, locations, and companies.</div>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <input type="text" id="settingsCalibratorInput" placeholder="Type a message..." style="flex: 1; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 12px; box-sizing: border-box;" />
+              <button id="settingsCalibratorSend" style="padding: 8px 10px; background: linear-gradient(135deg, #8b5cf6, #7c3aed); border: none; color: white; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none" style="transform: rotate(25deg)"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filters Modal -->
+            <div class="modal-actions">
+              <button class="btn btn-outline btn-sm" id="settingsFiltersClose">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- TIMELINE TAB                                    -->
+      <!-- ═══════════════════════════════════════════════ -->
+      <div class="tab-content" id="tab-timeline">
+        <div class="card">
+          <div class="card-header" style="cursor: default">
+            <h3>
+              <svg
+                width="16"
+                height="16"
+                fill="none"
+                stroke="var(--green)"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              Career Timeline
+            </h3>
+            <div style="display: flex; gap: 6px">
+              <button class="btn btn-outline btn-sm" id="timelineAddBtn">
+                + Add
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div id="timelineList"></div>
+            <div id="timelineEmpty" class="empty-state">
+              <svg
+                width="32"
+                height="32"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <p>No timeline entries yet.</p>
+              <p style="font-size: 11px; color: var(--text-muted)">
+                Click "+ Add" to create entries manually.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- TRACKER TAB                                     -->
+      <!-- ═══════════════════════════════════════════════ -->
+      <div class="tab-content" id="tab-tracker">
+        <div class="card">
+          <div class="card-header" style="cursor: default">
+            <h3>
+              <svg
+                width="16"
+                height="16"
+                fill="none"
+                stroke="var(--green)"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                />
+              </svg>
+              Application Tracker
+              <span
+                id="trackerCount"
+                style="
+                  font-size: 11px;
+                  font-weight: 400;
+                  color: var(--text-muted);
+                  margin-left: 6px;
+                "
+              ></span>
+            </h3>
+            <button class="btn btn-outline btn-sm" id="trackerExportBtn">
+              Export CSV
+            </button>
+          </div>
+          <div class="card-body">
+            <div id="trackerGrid" class="tracker-grid"></div>
+            <div id="trackerEmpty" class="empty-state">
+              <svg
+                width="32"
+                height="32"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                />
+              </svg>
+              <p>No tracked applications yet.</p>
+              <p style="font-size: 11px; color: var(--text-muted)">
+                Applications tracked via the extension will appear here.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- LEARNED RESPONSES TAB                           -->
+      <!-- ═══════════════════════════════════════════════ -->
+      <div class="tab-content" id="tab-learned">
+        <div class="card">
+          <div class="card-header" style="cursor: default">
+            <h3>
+              <svg
+                width="16"
+                height="16"
+                fill="none"
+                stroke="var(--purple)"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                />
+              </svg>
+              Learned Responses
+              <span
+                id="learnedCount"
+                style="
+                  font-size: 11px;
+                  font-weight: 400;
+                  color: var(--text-muted);
+                  margin-left: 6px;
+                "
+              ></span>
+            </h3>
+            <button class="btn btn-outline btn-sm" id="clearLearnedBtn">
+              Clear All
+            </button>
+          </div>
+          <div class="card-body">
+            <p
+              style="
+                font-size: 12px;
+                color: var(--text-muted);
+                margin-bottom: 12px;
+              "
+            >
+              These are answers the AI chatbox has learned from your
+              interactions. They're used to auto-fill fields on future
+              applications.
+            </p>
+            <div id="learnedList"></div>
+            <div id="learnedEmpty" class="empty-state">
+              <p>No learned responses yet.</p>
+              <p style="font-size: 11px; color: var(--text-muted)">
+                As you use the AI chatbox on job applications, answers will be
+                saved here.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════ -->
+      <!-- SETTINGS TAB                                    -->
+      <!-- ═══════════════════════════════════════════════ -->
+      <div class="tab-content" id="tab-settings">
+        <div class="card">
+          <div class="card-header" style="cursor: default">
+            <h3>
+              <svg
+                width="16"
+                height="16"
+                fill="none"
+                stroke="var(--green)"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.573-1.066z"
+                />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+              Extension Settings
+            </h3>
+          </div>
+          <div class="card-body">
+            <div class="toggle-row">
+              <div class="toggle-label">
+                Auto-Detect Fields
+                <small
+                  >Automatically detect and highlight form fields on job
+                  pages</small
+                >
+              </div>
+              <div
+                class="toggle"
+                data-toggle="autoDetect"
+                id="toggleAutoDetect"
+              ></div>
+            </div>
+            <div class="toggle-row">
+              <div class="toggle-label">
+                Show Badge
+                <small>Display badge count on the extension icon</small>
+              </div>
+              <div
+                class="toggle"
+                data-toggle="showBadge"
+                id="toggleShowBadge"
+              ></div>
+            </div>
+            <div class="toggle-row">
+              <div class="toggle-label">
+                Show Side Panel
+                <small>Show the JobPilot panel on job application pages</small>
+              </div>
+              <div
+                class="toggle"
+                data-toggle="showPanel"
+                id="toggleShowPanel"
+              ></div>
+            </div>
+            <div class="toggle-row">
+              <div class="toggle-label">
+                Include AI by Default
+                <small
+                  >Use AI-generated responses when filling fields
+                  automatically</small
+                >
+              </div>
+              <div
+                class="toggle"
+                data-toggle="includeAIByDefault"
+                id="toggleIncludeAI"
+              ></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Languages -->
+        <div class="card">
+          <div class="card-header" data-section="languages">
+            <h3>
+              <svg
+                width="16"
+                height="16"
+                fill="none"
+                stroke="var(--green)"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"
+                />
+              </svg>
+              Languages
+            </h3>
+            <svg
+              class="chevron"
+              width="16"
+              height="16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="field-grid">
+              <div class="field-group">
+                <label
+                  >Spoken Languages
+                  <small style="font-weight: 400; text-transform: none"
+                    >(comma separated)</small
+                  ></label
+                >
+                <input
+                  type="text"
+                  id="spokenLanguagesInput"
+                  placeholder="English, Portuguese, Spanish"
+                />
+              </div>
+              <div class="field-group">
+                <label>AI Response Language</label>
+                <select id="responseLanguageSelect">
+                  <option value="">Same as page</option>
+                  <option value="en">English</option>
+                  <option value="pt">Portuguese</option>
+                  <option value="es">Spanish</option>
+                  <option value="fr">French</option>
+                  <option value="de">German</option>
+                  <option value="it">Italian</option>
+                  <option value="nl">Dutch</option>
+                  <option value="ja">Japanese</option>
+                  <option value="zh">Chinese</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-bar">
+          <div class="stat">
+            <div class="stat-value" id="statFillCount">0</div>
+            <div class="stat-label">Fields Filled</div>
+          </div>
+          <div class="stat">
+            <div class="stat-value" id="statPageCount">0</div>
+            <div class="stat-label">Pages Used</div>
+          </div>
+        </div>
+
+        <!-- Export / Import -->
+        <div class="card" style="margin-top: 16px">
+          <div class="card-header" style="cursor: default">
+            <h3>Export / Import</h3>
+          </div>
+          <div class="card-body">
+            <p
+              style="
+                font-size: 12px;
+                color: var(--text-muted);
+                margin-bottom: 12px;
+              "
+            >
+              Export all your settings as a JSON file, or import from a
+              previously exported file.
+            </p>
+            <div class="export-import-row">
+              <button class="btn btn-outline btn-sm" id="exportBtn">
+                <svg
+                  width="12"
+                  height="12"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                  />
+                </svg>
+                Export JSON
+              </button>
+              <button class="btn btn-outline btn-sm" id="importBtn">
+                <svg
+                  width="12"
+                  height="12"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
+                  />
+                </svg>
+                Import JSON
+              </button>
+              <input
+                type="file"
+                id="importFileInput"
+                accept=".json"
+                style="display: none"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- .layout -->
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Autosave Indicator -->
+    <div class="autosave-indicator" id="autosaveIndicator"></div>
+
+    <!-- Add Custom Param Modal -->
+    <div class="modal-overlay" id="addParamModal">
+      <div class="modal">
+        <h3>Add Custom Parameter</h3>
+        <div class="field-group" style="margin-bottom: 12px">
+          <label>Field Label</label>
+          <input
+            type="text"
+            id="newParamLabel"
+            placeholder="e.g. Visa Status"
+          />
+        </div>
+        <div class="field-group" style="margin-bottom: 12px">
+          <label>Section</label>
+          <select id="newParamSection">
+            <option value="custom">New Parameters</option>
+            <option value="personal">Personal Info</option>
+            <option value="experience">Experience</option>
+            <option value="education">Education</option>
+            <option value="links">Links</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="modal-actions">
+          <button
+            class="btn btn-outline btn-sm"
+            onclick="
+              document
+                .getElementById('addParamModal')
+                .classList.remove('active')
+            "
+          >
+            Cancel
+          </button>
+          <button class="btn btn-green btn-sm" id="confirmAddParam">Add</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="settings.js?v=1.2"></script>
+  </body>
+</html>

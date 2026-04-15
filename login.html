@@ -1,0 +1,619 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Log In — JobPilot AI</title>
+    <link rel="icon" type="image/png" href="icon.png" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --bg: #0a0a0a;
+        --surface: #111;
+        --surface2: #1a1a1a;
+        --border: rgba(255, 255, 255, 0.08);
+        --border2: rgba(255, 255, 255, 0.12);
+        --text: #e5e5e5;
+        --muted: #888;
+        --white: #fff;
+        --green: #10b981;
+        --green-dark: #059669;
+        --green-glow: rgba(16, 185, 129, 0.15);
+        --purple: #8b5cf6;
+        --purple-dark: #7c3aed;
+        --purple-glow: rgba(139, 92, 246, 0.15);
+        --radius: 12px;
+      }
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* NAV (simplified) */
+      nav {
+        width: 100%;
+        background: rgba(10, 10, 10, 0.85);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+      }
+      .nav-inner {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 0 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 64px;
+      }
+      .nav-logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700;
+        font-size: 18px;
+        color: var(--white);
+        text-decoration: none;
+      }
+      .nav-logo-icon {
+        width: 32px;
+        height: 32px;
+        background: linear-gradient(135deg, var(--green), var(--green-dark));
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .nav-logo-icon svg {
+        width: 18px;
+        height: 18px;
+      }
+      .nav-right a {
+        font-size: 14px;
+        color: var(--muted);
+        font-weight: 500;
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .nav-right a:hover {
+        color: var(--white);
+      }
+
+      /* AUTH CONTAINER */
+      .auth-wrapper {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+      }
+      .auth-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 48px 40px;
+        max-width: 400px;
+        width: 100%;
+      }
+      .auth-card h1 {
+        font-size: 24px;
+        font-weight: 800;
+        color: var(--white);
+        text-align: center;
+        margin-bottom: 8px;
+      }
+      .auth-card .subtitle {
+        text-align: center;
+        color: var(--muted);
+        font-size: 14px;
+        margin-bottom: 32px;
+      }
+
+      /* GOOGLE BUTTON */
+      .btn-google {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        padding: 12px;
+        background: var(--white);
+        color: #333;
+        font-size: 14px;
+        font-weight: 600;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .btn-google:hover {
+        background: #f3f3f3;
+        transform: translateY(-1px);
+      }
+      .btn-google svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      .divider {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 28px 0;
+        color: var(--muted);
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .divider::before,
+      .divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--border);
+      }
+
+      /* FORM */
+      .auth-form label {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--muted);
+        margin-bottom: 6px;
+      }
+      .auth-form input {
+        width: 100%;
+        padding: 10px 12px;
+        background: var(--surface2);
+        border: 1px solid var(--border2);
+        border-radius: 8px;
+        color: var(--white);
+        font-size: 14px;
+        outline: none;
+        transition: border-color 0.2s;
+        margin-bottom: 16px;
+      }
+      .auth-form input:focus {
+        border-color: var(--green);
+      }
+      .auth-form input::placeholder {
+        color: #555;
+      }
+
+      .btn-green {
+        width: 100%;
+        padding: 12px;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--white);
+        background: var(--green);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s;
+        margin-top: 8px;
+      }
+      .btn-green:hover {
+        background: var(--green-dark);
+      }
+      .btn-green:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .auth-footer {
+        text-align: center;
+        margin-top: 24px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .auth-footer a {
+        color: var(--green);
+        text-decoration: none;
+        font-weight: 600;
+      }
+      .auth-footer a:hover {
+        text-decoration: underline;
+      }
+
+      /* STATUS MESSAGES */
+      .auth-status {
+        text-align: center;
+        padding: 12px;
+        border-radius: 8px;
+        font-size: 13px;
+        margin-bottom: 16px;
+        display: none;
+      }
+      .auth-status.success {
+        display: block;
+        background: var(--green-glow);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+        color: var(--green);
+      }
+      .auth-status.error {
+        display: block;
+        background: rgba(239, 68, 68, 0.1);
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        color: #ef4444;
+      }
+
+      /* LOGGED-IN STATE */
+      .logged-in {
+        text-align: center;
+        display: none;
+      }
+      .logged-in .avatar {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        margin: 0 auto 16px;
+        border: 2px solid var(--green);
+      }
+      .logged-in .name {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--white);
+        margin-bottom: 4px;
+      }
+      .logged-in .email {
+        font-size: 14px;
+        color: var(--muted);
+        margin-bottom: 24px;
+      }
+      .logged-in .sync-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 14px;
+        background: var(--green-glow);
+        border: 1px solid rgba(16, 185, 129, 0.25);
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--green);
+        margin-bottom: 24px;
+      }
+      .btn-outline {
+        width: 100%;
+        padding: 10px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--muted);
+        border: 1px solid var(--border2);
+        border-radius: 8px;
+        background: transparent;
+        cursor: pointer;
+        transition: all 0.2s;
+        margin-top: 8px;
+      }
+      .btn-outline:hover {
+        color: var(--white);
+        border-color: rgba(255, 255, 255, 0.25);
+      }
+
+      .info-box {
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 16px;
+        margin-top: 24px;
+        font-size: 12px;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+      .info-box strong {
+        color: var(--text);
+      }
+
+      /* PAGE FOOTER */
+      .page-footer {
+        text-align: center;
+        padding: 24px;
+        font-size: 12px;
+        color: #555;
+      }
+      .page-footer a {
+        color: #555;
+        text-decoration: none;
+      }
+      .page-footer a:hover {
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav>
+      <div class="nav-inner">
+        <a href="index.html" class="nav-logo">
+          <div class="nav-logo-icon">
+            <svg viewBox="0 0 24 24" fill="white">
+              <path d="M13 2L4 14h7l-2 8 9-12h-7l2-8z" />
+            </svg>
+          </div>
+          JobPilot AI
+        </a>
+        <div class="nav-right">
+          <a href="index.html">&larr; Back to Home</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- AUTH -->
+    <div class="auth-wrapper">
+      <div class="auth-card">
+        <!-- Login form (shown when logged out) -->
+        <div id="loginView">
+          <h1>Welcome back</h1>
+          <p class="subtitle">Sign in to sync your profile across devices</p>
+
+          <div id="authStatus" class="auth-status"></div>
+
+          <!-- Google Sign-In -->
+          <button
+            id="googleBtn"
+            class="btn-google"
+            onclick="signInWithGoogle()"
+          >
+            <svg viewBox="0 0 24 24">
+              <path
+                fill="#4285F4"
+                d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1z"
+              />
+              <path
+                fill="#34A853"
+                d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+              />
+              <path
+                fill="#FBBC05"
+                d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+              />
+              <path
+                fill="#EA4335"
+                d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+              />
+            </svg>
+            Continue with Google
+          </button>
+
+          <div class="divider">or sign in with email</div>
+
+          <form class="auth-form" onsubmit="signInWithEmail(event)">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              placeholder="you@example.com"
+              required
+              autocomplete="email"
+            />
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              placeholder="Your password"
+              required
+              autocomplete="current-password"
+            />
+            <button type="submit" class="btn-green" id="emailBtn">
+              Sign In
+            </button>
+          </form>
+
+          <p class="auth-footer">
+            Don't have an account? <a href="login.html?mode=signup">Sign up</a>
+          </p>
+
+          <div class="info-box">
+            <strong>Already using the extension?</strong><br />
+            If you signed in via the extension popup, your session syncs
+            automatically through Chrome. You only need to sign in here to
+            manage your account.
+          </div>
+        </div>
+
+        <!-- Logged-in state -->
+        <div id="loggedInView" class="logged-in">
+          <img id="userAvatar" class="avatar" src="" alt="" />
+          <div id="userName" class="name"></div>
+          <div id="userEmail" class="email"></div>
+          <div class="sync-badge">&#x2713; Synced with Chrome Extension</div>
+          <button class="btn-green" onclick="goToWebSettings()">
+            Open Web Settings
+          </button>
+          <button class="btn-green" onclick="goToExtension()">
+            View on Chrome Web Store
+          </button>
+          <button class="btn-outline" onclick="signOut()">Sign Out</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="page-footer">
+      &copy; 2026 JobPilot AI &middot;
+      <a href="privacy.html">Privacy</a> &middot;
+      <a href="support.html">Support</a>
+    </div>
+
+    <!-- Google Identity Services -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <script>
+      // OAuth Client ID (web client — needs to be configured in Google Cloud Console)
+      const GOOGLE_CLIENT_ID =
+        "946736931967-dhg3dfluros2qcjp3u1k779l9lk6jt3v.apps.googleusercontent.com";
+
+      // State
+      let currentUser = null;
+
+      // Check URL params for mode
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get("mode") === "signup") {
+        document.querySelector(".auth-card h1").textContent =
+          "Create your account";
+        document.querySelector(".auth-card .subtitle").textContent =
+          "Sign up to sync your profile and unlock Pro features";
+        document.getElementById("emailBtn").textContent = "Create Account";
+        document.querySelector(".auth-footer").innerHTML =
+          'Already have an account? <a href="login.html">Sign in</a>';
+      }
+
+      // Google Sign-In
+      function signInWithGoogle() {
+        const btn = document.getElementById("googleBtn");
+        btn.disabled = true;
+        btn.textContent = "Signing in...";
+
+        try {
+          const client = google.accounts.oauth2.initTokenClient({
+            client_id: GOOGLE_CLIENT_ID,
+            scope: "email profile",
+            callback: handleGoogleToken,
+          });
+          client.requestAccessToken();
+        } catch (err) {
+          showStatus(
+            "Google Sign-In not available. Please try again or use email.",
+            "error",
+          );
+          btn.disabled = false;
+          btn.innerHTML =
+            '<svg viewBox="0 0 24 24" width="18" height="18"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg> Continue with Google';
+        }
+      }
+
+      async function handleGoogleToken(tokenResponse) {
+        if (tokenResponse.error) {
+          showStatus("Sign-in cancelled or failed.", "error");
+          resetGoogleBtn();
+          return;
+        }
+
+        try {
+          // Get user info from Google
+          const resp = await fetch(
+            "https://www.googleapis.com/oauth2/v2/userinfo",
+            {
+              headers: {
+                Authorization: `Bearer ${tokenResponse.access_token}`,
+              },
+            },
+          );
+
+          if (!resp.ok) throw new Error("Failed to fetch user info");
+
+          const userInfo = await resp.json();
+          currentUser = {
+            uid: userInfo.id,
+            email: userInfo.email,
+            displayName: userInfo.name,
+            photoURL: userInfo.picture,
+            provider: "google",
+            signedInAt: Date.now(),
+            accessToken: tokenResponse.access_token,
+          };
+
+          // Store in localStorage for website session
+          localStorage.setItem("jobpilot_user", JSON.stringify(currentUser));
+
+          showLoggedIn();
+          showStatus("Signed in successfully!", "success");
+        } catch (err) {
+          showStatus("Failed to sign in: " + err.message, "error");
+        }
+
+        resetGoogleBtn();
+      }
+
+      function resetGoogleBtn() {
+        const btn = document.getElementById("googleBtn");
+        btn.disabled = false;
+        btn.innerHTML =
+          '<svg viewBox="0 0 24 24" width="18" height="18"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg> Continue with Google';
+      }
+
+      // Email sign-in (placeholder — extend with your auth backend)
+      function signInWithEmail(e) {
+        e.preventDefault();
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        // For now, show a message directing to Google sign-in
+        // Replace with actual email auth when backend is ready
+        showStatus(
+          "Email authentication coming soon. Please use Google Sign-In for now.",
+          "error",
+        );
+      }
+
+      // Show logged-in view
+      function showLoggedIn() {
+        document.getElementById("loginView").style.display = "none";
+        const view = document.getElementById("loggedInView");
+        view.style.display = "block";
+
+        if (currentUser.photoURL) {
+          document.getElementById("userAvatar").src = currentUser.photoURL;
+        }
+        document.getElementById("userName").textContent =
+          currentUser.displayName || "User";
+        document.getElementById("userEmail").textContent = currentUser.email;
+      }
+
+      // Sign out
+      function signOut() {
+        currentUser = null;
+        localStorage.removeItem("jobpilot_user");
+        document.getElementById("loginView").style.display = "";
+        document.getElementById("loggedInView").style.display = "none";
+        document.getElementById("authStatus").className = "auth-status";
+        document.getElementById("authStatus").style.display = "none";
+      }
+
+      // Open extension settings
+      function goToWebSettings() {
+        window.open("https://jobpilot.pt/settings.html", "_blank");
+      }
+
+      function goToExtension() {
+        // Can't open chrome-extension:// from web pages, so direct user
+        // to click the extension icon or open the CWS listing
+        window.open(
+          "https://chrome.google.com/webstore/detail/kbmpbhhhdojgjnpfpnoehafmllfejgll",
+          "_blank",
+        );
+      }
+
+      // Status messages
+      function showStatus(msg, type) {
+        const el = document.getElementById("authStatus");
+        el.textContent = msg;
+        el.className = "auth-status " + type;
+      }
+
+      // Check for existing session on load
+      document.addEventListener("DOMContentLoaded", () => {
+        const saved = localStorage.getItem("jobpilot_user");
+        if (saved) {
+          try {
+            currentUser = JSON.parse(saved);
+            showLoggedIn();
+          } catch (e) {
+            localStorage.removeItem("jobpilot_user");
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

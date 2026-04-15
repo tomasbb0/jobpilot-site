@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Support — JobPilot AI</title>
+    <link rel="icon" type="image/png" href="icon.png" />
+    <style>
+      *{margin:0;padding:0;box-sizing:border-box}
+      :root{--bg:#0a0a0a;--surface:#111;--surface2:#1a1a1a;--border:rgba(255,255,255,.08);--border2:rgba(255,255,255,.12);--text:#e5e5e5;--muted:#888;--white:#fff;--green:#10b981;--green-dark:#059669;--green-glow:rgba(16,185,129,.15);--purple:#8b5cf6;--radius:12px}
+      body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
+
+      nav{position:fixed;top:0;width:100%;z-index:100;background:rgba(10,10,10,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+      .nav-inner{max-width:1120px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:64px}
+      .nav-logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px;color:var(--white);text-decoration:none}
+      .nav-logo-icon{width:32px;height:32px;background:linear-gradient(135deg,var(--green),var(--green-dark));border-radius:8px;display:flex;align-items:center;justify-content:center}
+      .nav-logo-icon svg{width:18px;height:18px}
+      .nav-right a{font-size:14px;color:var(--muted);font-weight:500;text-decoration:none;transition:color .2s}
+      .nav-right a:hover{color:var(--white)}
+
+      .container{max-width:720px;margin:0 auto;padding:100px 24px 60px}
+      h1{font-size:36px;font-weight:800;color:var(--white);margin-bottom:8px}
+      .subtitle{color:var(--muted);font-size:16px;margin-bottom:40px}
+
+      .support-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px;margin-bottom:16px;transition:border-color .2s}
+      .support-section:hover{border-color:var(--border2)}
+      .support-section h2{font-size:18px;font-weight:700;color:var(--white);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+      .support-section p{color:var(--muted);line-height:1.6;margin-bottom:12px;font-size:14px}
+      .support-section a{color:var(--green);text-decoration:none;font-weight:600;font-size:14px}
+      .support-section a:hover{text-decoration:underline}
+
+      .faq{margin-top:48px}
+      .faq h2{font-size:24px;font-weight:800;color:var(--white);margin-bottom:24px}
+      .faq-item{border-bottom:1px solid var(--border)}
+      .faq-item summary{padding:18px 0;font-size:15px;font-weight:600;color:var(--white);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+      .faq-item summary::after{content:'+';font-size:20px;color:var(--muted);transition:transform .2s}
+      .faq-item[open] summary::after{content:'\2212'}
+      .faq-item p{padding:0 0 18px;font-size:14px;color:var(--muted);line-height:1.7;margin:0}
+      .faq-item a{color:var(--green);text-decoration:none}
+      .faq-item a:hover{text-decoration:underline}
+
+      footer{border-top:1px solid var(--border);padding:32px 0;text-align:center;font-size:13px;color:#555;max-width:720px;margin:40px auto 0}
+      footer a{color:#555;text-decoration:none}
+      footer a:hover{color:var(--muted)}
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="nav-inner">
+        <a href="index.html" class="nav-logo">
+          <div class="nav-logo-icon"><svg viewBox="0 0 24 24" fill="white"><path d="M13 2L4 14h7l-2 8 9-12h-7l2-8z"/></svg></div>
+          JobPilot AI
+        </a>
+        <div class="nav-right"><a href="index.html">&larr; Back to Home</a></div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <h1>Support Center</h1>
+      <p class="subtitle">We're here to help you get the most out of JobPilot AI</p>
+
+      <div class="support-section">
+        <h2>&#128231; Email Support</h2>
+        <p>Have a question, suggestion, or found a bug? Send us an email and we'll get back to you within 24 hours.</p>
+        <a href="mailto:support@jobpilot.pt">support@jobpilot.pt</a>
+      </div>
+
+      <div class="support-section">
+        <h2>&#128027; Report a Bug</h2>
+        <p>If the extension isn't working correctly on a specific job site, please open an issue on GitHub with details about the problem.</p>
+        <a href="https://github.com/tomasbb0/job-autofill-extension/issues/new" target="_blank">Open a GitHub Issue</a>
+      </div>
+
+      <div class="support-section">
+        <h2>&#128161; Feature Requests</h2>
+        <p>Have an idea for a new feature? We'd love to hear it! Open a feature request on GitHub.</p>
+        <a href="https://github.com/tomasbb0/job-autofill-extension/issues/new?labels=enhancement" target="_blank">Request a Feature</a>
+      </div>
+
+      <div class="faq">
+        <h2>Frequently Asked Questions</h2>
+
+        <details class="faq-item">
+          <summary>How do I get an OpenAI API key?</summary>
+          <p>Visit <a href="https://platform.openai.com/api-keys" target="_blank">platform.openai.com/api-keys</a>, create an account if needed, and generate a new API key. Paste it in the extension settings under the AI tab.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Is my data safe?</summary>
+          <p>Yes! All your profile data is stored locally in your browser using Chrome's storage API. We never send personal information to our servers. When you use AI features, your data goes directly to OpenAI's API — never through us.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>The extension isn't detecting fields on a job site</summary>
+          <p>Some job sites use custom form implementations. Try refreshing the page. If it still doesn't work, please report the issue with the job site URL and we'll add support for it.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>How much does the AI feature cost?</summary>
+          <p>The free plan includes 3 AI cover letters and 10 AI field fills per month at no cost. Pro ($4.99/mo) gives you unlimited AI. You can also bring your own API key for unlimited AI on the free plan — typical cost is less than $0.01 per application.</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Can I use it without AI?</summary>
+          <p>Absolutely! Basic autofill (name, email, phone, work history, etc.) works without any AI. Just fill in your profile and click "Fill All Fields".</p>
+        </details>
+
+        <details class="faq-item">
+          <summary>How do I cancel my Pro subscription?</summary>
+          <p>Open the extension popup, go to Settings, and click "Manage Subscription". You can cancel anytime with one click. You keep Pro access until the end of your billing period.</p>
+        </details>
+      </div>
+    </div>
+
+    <footer>
+      &copy; 2026 JobPilot AI &middot; <a href="https://jobpilot.pt">jobpilot.pt</a> &middot; <a href="privacy.html">Privacy</a>
+    </footer>
+
+  </body>
+</html>
