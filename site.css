@@ -490,3 +490,7 @@ ul, ol { margin: 0; padding: 0; }
 .plan.pro.soon .price span, .plan.pro.soon .price-note, .plan.pro.soon .checks li, .plan.pro.soon .checks strong { color: var(--grey-2); }
 .plan.pro.soon .checks svg { stroke: var(--grey-2); opacity: .7; }
 .plan.pro.soon .btn { pointer-events: none; cursor: default; background: transparent; color: var(--grey); border: 1px solid var(--line); box-shadow: none; }
+
+/* the tilt needs the hero's entrance animation to let go of transform once it has played */
+.hero-shot { animation-fill-mode: backwards; transform-origin: 50% 100%; }
+.stage .glass { transform-origin: 50% 50%; }
