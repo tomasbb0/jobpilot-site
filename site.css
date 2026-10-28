@@ -494,3 +494,11 @@ ul, ol { margin: 0; padding: 0; }
 /* the tilt needs the hero's entrance animation to let go of transform once it has played */
 .hero-shot { animation-fill-mode: backwards; transform-origin: 50% 100%; }
 .stage .glass { transform-origin: 50% 50%; }
+
+/* by BytArc, beside the logo */
+.brand-lockup { display: inline-flex; align-items: center; gap: 12px; flex: none; }
+.by-bytarc { font-size: 12.5px; font-weight: 500; letter-spacing: 0; color: var(--grey); white-space: nowrap; transition: color .2s; }
+.by-bytarc:hover { color: var(--white); }
+.hero-trust a { color: inherit; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(255, 255, 255, .3); }
+.hero-trust a:hover { color: var(--white); }
+@media (max-width: 600px) { .brand-lockup .by-bytarc { display: none; } }
