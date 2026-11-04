@@ -339,6 +339,7 @@ async function checkConnection() {
 async function loadAllData() {
   try {
     profileData = await Bridge.getAll("sync");
+    updateAiKeyStatus();
     // Also get local data (CV content, file data)
     try {
       localData = await Bridge.getAll("local");
@@ -1096,7 +1097,7 @@ function checkPendingItems() {
     if (!profileData[f.key]) missing.push(`${f.label} is empty`);
   });
 
-  const hasAnyKey = aiKeys.some((k) => profileData[k]);
+  const hasAnyKey = !!profileData.__hasAiKey || aiKeys.some((k) => profileData[k]);   // 3.1: keys never leave the extension; it says whether one exists
   if (!hasAnyKey) missing.push("No AI provider API key configured");
   if (
     !profileData.cvContent &&
@@ -2353,3 +2354,11 @@ async function init() {
 }
 
 document.addEventListener("DOMContentLoaded", init);
+
+// 3.1: the extension never sends AI keys to a web page; it only says whether one is set
+function updateAiKeyStatus() {
+  const el = document.getElementById("ai-key-status");
+  if (!el) return;
+  const has = !!(profileData && (profileData.__hasAiKey || profileData.openaiKey || profileData.anthropicKey || profileData.googleAiKey));
+  el.textContent = has ? "AI key: connected in the extension." : "No AI key yet. Add one in the extension to unlock the AI features.";
+}
