@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JobPilot Plugin Privacy Policy</title>
+    <meta name="description" content="Privacy policy for the JobPilot plugin in ChatGPT: what its job tools receive (search words and job links, no personal data), that nothing is stored, who hosts them and OpenAI's role." />
+    <meta name="theme-color" content="#0A0A0B" />
+    <link rel="canonical" href="https://jobpilot.pt/plugin-privacy.html" />
+    <link rel="icon" href="/favicon.ico?v=3" sizes="any" />
+    <link rel="icon" href="/brand/favicon.svg?v=3" type="image/svg+xml" />
+    <link rel="icon" href="/brand/favicon-96.png?v=3" type="image/png" sizes="96x96" />
+    <link rel="icon" href="/brand/favicon-48.png?v=3" type="image/png" sizes="48x48" />
+    <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png?v=3" />
+    <link rel="manifest" href="/site.webmanifest?v=3" />
+    <link rel="preload" href="fonts/Geist-Variable-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&display=swap" />
+    <link rel="stylesheet" href="site.css?v=2" />
+      <meta name="author" content="BytArc" />
+</head>
+  <body>
+    <!-- NAV + TITLE: the black top area -->
+    <div class="dark page-head">
+      <header class="nav">
+        <div class="wrap nav-in">
+          <span class="brand-lockup"><a href="index.html" class="brand" aria-label="JobPilot AI home">
+            <img src="brand/jobpilot-mark-white.svg" width="27" height="18" alt="" />
+            <span>JobPilot AI</span>
+          </a><a class="by-bytarc" href="https://bytarc.com/" target="_blank" rel="noopener" title="BytArc, an AI studio in Lisbon">by BytArc</a></span>
+          <a href="index.html" class="nav-back">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7" /><path d="M19 12H5" /></svg>
+            Back to home
+          </a>
+        </div>
+      </header>
+      <div class="wrap wrap-narrow page-head-in">
+        <p class="kicker">Legal</p>
+        <h1>Plugin Privacy Policy</h1>
+        <p class="meta">Last updated: November 4, 2026</p>
+      </div>
+    </div>
+
+    <main class="wrap wrap-narrow prose">
+      <h2>Overview</h2>
+      <p>
+        This policy covers the JobPilot plugin in ChatGPT ("the plugin"). The
+        plugin has two parts: a set of instructions and reference files that
+        runs inside ChatGPT, and four read-only job tools that ChatGPT can call
+        on JobPilot's server, which is hosted on Deno Deploy. The job tools
+        search public job boards, check whether a job link is still open, read
+        the full text of a posting, and give facts about the JobPilot Chrome
+        extension. The plugin has no JobPilot account and cannot connect to the
+        Chrome extension. The Chrome extension has its own policy:
+        <a href="privacy.html">Privacy Policy</a>.
+      </p>
+
+      <h2>What JobPilot Receives Through the Plugin</h2>
+      <p>
+        JobPilot does not receive your conversations, the CV or other files you
+        share, or the answers and cover letters written for you. When ChatGPT
+        uses a job tool, JobPilot's server receives only what that tool needs:
+      </p>
+      <ul>
+        <li>search words for a role, for example "data analyst";</li>
+        <li>a job location to filter postings, for example "Lisbon" or "remote";</li>
+        <li>names of companies or job boards to search;</li>
+        <li>links to job postings to check or read.</li>
+      </ul>
+      <p>
+        The tools do not ask for names, contact details, CV text or any other
+        personal data, and the plugin instructs ChatGPT never to send them.
+        Tool requests reach the server from OpenAI's systems, not from your
+        device. Like any web server, it sees the network (IP) address each
+        request comes from.
+      </p>
+
+      <h2>How It Is Used and What Is Kept</h2>
+      <ul>
+        <li>
+          <strong>Used only to answer.</strong> The server uses each request to
+          look up public job boards (Greenhouse, Lever, Ashby, SmartRecruiters
+          and Workday career sites) or to load the job page you asked about, and
+          sends the result back to ChatGPT.
+        </li>
+        <li>
+          <strong>Nothing is stored.</strong> Search words, locations, company
+          names and links are not saved in a database or written to our logs.
+          The server's logs record only the time, the type of request, which
+          tool was called, the response status and how long it took.
+        </li>
+        <li>
+          <strong>Abuse protection.</strong> To limit how often the tools can be
+          called, the server counts requests per network address in memory for
+          a few minutes, using a scrambled (hashed) form of the address that is
+          never logged or saved.
+        </li>
+        <li>
+          <strong>Public job data only.</strong> Postings from public job boards
+          (not your data) are kept in memory for about 10 minutes so that
+          repeated searches are faster.
+        </li>
+      </ul>
+
+      <h2>What the Plugin Works With Inside ChatGPT</h2>
+      <p>
+        While you use it, the plugin helps ChatGPT work with what you choose to
+        share in the conversation, which can include:
+      </p>
+      <ul>
+        <li>Your CV: name, contact details, work history, education, skills and languages</li>
+        <li>Job postings and links you share or that Pilot finds with the job tools or web search</li>
+        <li>Your answers to application questions, cover letters and interview notes</li>
+        <li>The application tracker table (company, role, link, status, dates and notes)</li>
+      </ul>
+      <p>
+        This stays in ChatGPT and is used only to give you the help you ask for
+        in that conversation: writing answers and cover letters, finding and
+        checking job postings, keeping the tracker and preparing interviews.
+      </p>
+
+      <h2>Who Processes It</h2>
+      <ul>
+        <li>
+          <strong>OpenAI</strong> operates ChatGPT and processes your
+          conversations and files under its own
+          <a href="https://openai.com/policies/privacy-policy/" target="_blank" rel="noopener">privacy policy</a>
+          and your ChatGPT data controls. OpenAI also receives the job tools'
+          results inside your conversation. JobPilot has no control over that
+          processing.
+        </li>
+        <li>
+          <strong>Deno Land Inc. (Deno Deploy)</strong> hosts JobPilot's server
+          and processes the tool requests described above on our behalf. As a
+          hosting provider it may keep technical records of network traffic,
+          such as IP addresses, under its
+          <a href="https://deno.com/privacy" target="_blank" rel="noopener">privacy policy</a>.
+        </li>
+        <li>
+          <strong>Job boards and job sites.</strong> To answer a tool request,
+          JobPilot's server contacts the public job board or the web page of
+          the link being checked. They receive a request from our server for
+          that company or posting, not your identity or network address.
+        </li>
+        <li>
+          <strong>Websites you visit.</strong> Any site you open from a link has
+          its own privacy policy.
+        </li>
+      </ul>
+      <p>JobPilot does not sell or share data from the plugin for advertising.</p>
+
+      <h2>Retention</h2>
+      <p>
+        JobPilot keeps nothing you share through the plugin. Tool requests are
+        answered and not saved; the in-memory counters and the job board cache
+        are cleared within minutes. The server's request logs, which contain
+        no request contents, are kept by Deno Deploy for a limited period. Your
+        chats and files are kept by OpenAI according to your ChatGPT settings
+        and OpenAI's policies. The application tracker exists only in the
+        conversation and in any CSV file you download.
+      </p>
+
+      <h2>Your Controls</h2>
+      <ul>
+        <li>You decide what to share. You can remove ID numbers, date of birth and home address from your CV before sharing it.</li>
+        <li>You can ask Pilot not to use the job tools, and use web search or your own links instead.</li>
+        <li>You can delete conversations, and manage memory and model-training settings, in ChatGPT's settings.</li>
+        <li>You can uninstall the plugin from the Plugins page in ChatGPT at any time.</li>
+        <li>For any question or request about your data, write to <a href="mailto:support@jobpilot.pt">support@jobpilot.pt</a>.</li>
+      </ul>
+
+      <h2>What Not to Share</h2>
+      <p>
+        Do not share passwords, one-time codes, API keys, government ID numbers
+        (passport, national ID, tax or social security numbers) or bank or card
+        details. Pilot never asks for them, and if you share them by mistake it
+        will tell you, will not repeat them and will not send them to any tool.
+      </p>
+
+      <h2>Links to JobPilot</h2>
+      <p>
+        When you ask for forms to be filled, the plugin may give you a link to
+        <a href="download.html">download the JobPilot Chrome extension</a>. If
+        you install it, the extension's <a href="privacy.html">privacy policy</a>
+        applies.
+      </p>
+
+      <h2>Children</h2>
+      <p>The plugin is not directed at children under 13.</p>
+
+      <h2>Changes to This Policy</h2>
+      <p>
+        If the plugin changes what it sends to JobPilot, for example if a future
+        version connects to a JobPilot account, this policy will be updated
+        before that version is released, to describe what data then reaches
+        JobPilot, why, who receives it, how long it is kept and how to control
+        it. The "Last updated" date shows the latest change. The
+        <a href="terms.html">Terms of Service</a> also apply to the plugin.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        JobPilot is made by BytArc, Lisbon, Portugal. For questions about this
+        policy, contact us at
+        <a href="mailto:support@jobpilot.pt">support@jobpilot.pt</a>.
+      </p>
+    </main>
+
+    <footer class="foot solid">
+      <div class="wrap foot-in">
+        <p class="foot-copy">
+          <img src="brand/jobpilot-mark-white.svg" width="22" height="15" alt="" />
+          <span>&copy; 2026 JobPilot AI &middot; <a href="https://bytarc.com/" target="_blank" rel="noopener" title="BytArc, an AI studio in Lisbon">by BytArc</a></span>
+        </p>
+        <nav class="foot-links" aria-label="Footer">
+          <a href="download.html">Download</a>
+          <a href="signup.html">Sign up</a>
+          <a href="support.html">Support</a>
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+          <a href="https://github.com/tomasbb0/job-autofill-extension" target="_blank" rel="noopener">GitHub</a>
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>
