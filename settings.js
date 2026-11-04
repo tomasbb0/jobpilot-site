@@ -373,10 +373,12 @@ function populateUI() {
     }
   });
 
-  // Toggles
+  // Toggles. The extension treats these as on until they are switched off (unset counts as on).
+  const DEFAULT_ON = ["autoDetect", "showBadge", "showPanel"];
   $$("[data-toggle]").forEach((el) => {
     const key = el.dataset.toggle;
-    if (profileData[key]) {
+    const on = DEFAULT_ON.includes(key) ? profileData[key] !== false : !!profileData[key];
+    if (on) {
       el.classList.add("active");
     } else {
       el.classList.remove("active");
@@ -1091,16 +1093,16 @@ function checkPendingItems() {
   const aiKeys = ["openaiKey", "anthropicKey", "googleAiKey"];
 
   required.forEach((f) => {
-    if (!profileData[f.key]) missing.push(`⚠ ${f.label} is empty`);
+    if (!profileData[f.key]) missing.push(`${f.label} is empty`);
   });
 
   const hasAnyKey = aiKeys.some((k) => profileData[k]);
-  if (!hasAnyKey) missing.push("⚠ No AI provider API key configured");
+  if (!hasAnyKey) missing.push("No AI provider API key configured");
   if (
     !profileData.cvContent &&
     !(profileData.cvFiles && profileData.cvFiles.length)
   ) {
-    missing.push("⚠ No CV uploaded or pasted");
+    missing.push("No CV uploaded or pasted");
   }
 
   if (missing.length === 0) {
@@ -1205,7 +1207,7 @@ function renderSettingsCvList() {
       <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
       <div style="flex:1;min-width:0;">
         <div style="font-size:12px;font-weight:600;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${escapeHtml(cv.name)}</div>
-        <div style="font-size:10px;color:var(--text-muted);">${cv.isDefault ? "⭐ Default · " : ""}${cv.addedAt ? new Date(cv.addedAt).toLocaleDateString() : ""} ${tags}</div>
+        <div style="font-size:10px;color:var(--text-muted);">${cv.isDefault ? "Default · " : ""}${cv.addedAt ? new Date(cv.addedAt).toLocaleDateString() : ""} ${tags}</div>
       </div>
       <button data-action="default-cv" data-idx="${idx}" style="background:none;border:none;cursor:pointer;padding:4px;color:${cv.isDefault ? "#10b981" : "#999"};" title="Set as default">
         <svg width="14" height="14" fill="${cv.isDefault ? "currentColor" : "none"}" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
@@ -1722,7 +1724,7 @@ function renderJobs4u() {
           }
           ${job.priority ? `<span style="font-size:9px;padding:2px 6px;border-radius:8px;color:white;background:${job.priority === "High" ? "#10b981" : job.priority === "Med" ? "#8b5cf6" : "#6b7280"};">${escapeHtml(job.priority)}</span>` : ""}
           ${job.isTargetCompany !== false ? `<span style="font-size:9px;padding:2px 6px;border-radius:8px;background:#8b5cf6;color:white;">Target</span>` : `<span style="font-size:9px;padding:2px 6px;border-radius:8px;background:#6b7280;color:white;">Non-Target</span>`}
-          ${job.live === false ? `<span style="font-size:9px;padding:2px 6px;border-radius:8px;background:#fef2f2;border:1px solid #fecaca;color:#dc2626;">⚠ Dead Link</span>` : ""}
+          ${job.live === false ? `<span style="font-size:9px;padding:2px 6px;border-radius:8px;background:#fef2f2;border:1px solid #fecaca;color:#dc2626;">Dead Link</span>` : ""}
           ${isNewJob ? `<span style="font-size:9px;padding:2px 6px;border-radius:8px;background:#d1fae5;border:1px solid #6ee7b7;color:#065f46;font-weight:600;">✦ New</span>` : ""}
           ${ageStr ? `<span style="font-size:8px;color:#b0b0b0;">${ageStr}</span>` : ""}
         </div>
@@ -1947,7 +1949,7 @@ function setupJobs4u() {
         </div>
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
           <span style="font-size:9px;color:#64748b;font-weight:500;">${pct}%</span>
-          <span style="font-size:9px;color:#94a3b8;">⏱ ${elapsed()}</span>
+          <span style="font-size:9px;color:#94a3b8;">${elapsed()}</span>
         </div>
         <div style="font-size:10px;color:#8b5cf6;font-weight:500;">${detail || "Starting..."}</div>
       </div>`;
@@ -2269,7 +2271,7 @@ function startPolling() {
       Bridge.connected = false;
       $("#connectionBanner").className = "connection-banner disconnected";
       $("#connectionText").textContent =
-        "Connection lost — trying to reconnect...";
+        "Connection lost. Trying to reconnect...";
       // Try to reconnect
       const ok = await Bridge.ping();
       if (ok) {
