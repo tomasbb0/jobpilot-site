@@ -1,0 +1,143 @@
+/* ============================================================
+   JobPilot: the getting-started tutorial (tutorial.js), shown on the settings page right after you sign in.
+   The extension's 3.1 look with the settings.css tokens: Geist, a white dialog with the one soft shadow,
+   flat grey surfaces inside it (nothing in the dialog has its own shadow), black primary and grey secondary
+   buttons, and the setup guide's progress bars, one per step. Falls back to the same values off the settings page.
+   ============================================================ */
+
+.jpt-overlay {
+  --jpt-ink: var(--ink, #0A0A0B);
+  --jpt-ink-3: var(--ink-3, #27272A);
+  --jpt-grey: var(--grey, #71717A);
+  --jpt-grey-2: var(--grey-2, #A1A1AA);
+  --jpt-line: var(--line, #E4E4E7);
+  --jpt-fill: var(--jp-fill, #F4F4F5);
+  --jpt-fill-hover: var(--jp-fill-hover, #EBEBED);
+  --jpt-white: #FFFFFF;
+  --jpt-shadow: var(--jp-sh-modal, 0 16px 48px rgba(0, 0, 0, 0.18));
+  --jpt-ease: var(--ease, cubic-bezier(.2, .7, .2, 1));
+
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(10, 10, 11, .45);
+  font-family: var(--font, "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--jpt-ink);
+  -webkit-font-smoothing: antialiased;
+}
+.jpt-overlay[hidden] { display: none; }
+html.jpt-lock { overflow: hidden; }
+
+.jpt-dialog {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  max-height: calc(100vh - 32px);
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+  padding: 20px;
+  background: var(--jpt-white);
+  border-radius: 12px;
+  box-shadow: var(--jpt-shadow);
+  animation: jptIn .25s var(--jpt-ease);
+}
+@keyframes jptIn { from { opacity: 0; transform: translateY(8px) scale(.98); } to { opacity: 1; transform: none; } }
+
+/* progress: one bar per step, black up to the open step (the popup's setup guide) */
+.jpt-bars { display: flex; gap: 4px; }
+.jpt-bar { flex: 1 1 0; height: 3px; border-radius: 999px; background: var(--jpt-line); transition: background-color .3s; }
+.jpt-bar.is-on { background: var(--jpt-ink); }
+
+.jpt-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 28px; margin-top: 10px; }
+.jpt-kicker { font-size: 12px; font-weight: 500; color: var(--jpt-grey); }
+.jpt-skip {
+  height: 28px;
+  margin-right: -8px;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--jpt-grey);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color .15s, color .15s;
+}
+.jpt-skip:hover { background: var(--jpt-fill); color: var(--jpt-ink); }
+
+/* the step's small drawing, on a flat grey panel */
+.jpt-art { display: flex; align-items: center; justify-content: center; height: 132px; margin-top: 8px; overflow: hidden; border-radius: 10px; background: var(--jpt-fill); }
+.jpt-art svg { display: block; width: 100%; height: 100%; }
+.jpt-art text { font-family: inherit; }
+
+.jpt-title { margin: 16px 0 0; font-size: 18px; font-weight: 600; line-height: 1.3; letter-spacing: -.01em; color: var(--jpt-ink); }
+.jpt-body { margin-top: 6px; color: var(--jpt-grey); }
+.jpt-body p { margin: 0; }
+.jpt-body p + p { margin-top: 8px; }
+.jpt-body strong { font-weight: 600; color: var(--jpt-ink); }
+.jpt-note { margin-top: 12px; padding: 10px 12px; border-radius: 10px; background: var(--jpt-fill); color: var(--jpt-ink); font-size: 12.5px; }
+
+/* live status: "waiting" with a pulsing dot, "found" with a check */
+.jpt-status { display: flex; align-items: center; gap: 8px; min-height: 18px; margin: 12px 0 0; font-size: 12px; font-weight: 500; color: var(--jpt-grey); }
+.jpt-status:empty { display: none; }
+.jpt-status .jpt-dot { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--jpt-grey-2); animation: jptPulse 1.5s infinite; }
+.jpt-status svg { flex: none; }
+.jpt-status.is-ok { color: var(--jpt-ink); }
+@keyframes jptPulse { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+
+/* actions: Back bottom left, then the grey secondary and the black primary */
+.jpt-actions { display: flex; align-items: center; gap: 8px; margin-top: 20px; }
+.jpt-actions-end { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+.jpt-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 10px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color .15s, color .15s;
+}
+.jpt-primary { background: var(--jpt-ink); color: var(--jpt-white); }
+.jpt-primary:hover { background: var(--jpt-ink-3); }
+.jpt-secondary { background: var(--jpt-fill); color: var(--jpt-ink); }
+.jpt-secondary:hover { background: var(--jpt-fill-hover); }
+.jpt-back { margin-left: -8px; padding: 0 10px 0 6px; background: transparent; color: var(--jpt-grey); }
+.jpt-back:hover { background: var(--jpt-fill); color: var(--jpt-ink); }
+.jpt-back[aria-hidden="true"] { visibility: hidden; }
+.jpt-overlay :focus-visible { outline: 2px solid var(--jpt-ink); outline-offset: 2px; }
+/* the title takes focus on each step so screen readers read it; it is not a control, so no ring */
+.jpt-overlay .jpt-title:focus, .jpt-overlay .jpt-title:focus-visible { outline: none; }
+
+/* phones: the main button on its own row, Back still bottom left */
+@media (max-width: 480px) {
+  .jpt-dialog { padding: 16px 16px 16px; }
+  .jpt-art { height: 116px; }
+  .jpt-title { margin-top: 14px; font-size: 17px; }
+  .jpt-actions { display: grid; grid-template-columns: auto 1fr; grid-template-areas: "primary primary" "back secondary"; row-gap: 8px; margin-top: 16px; }
+  .jpt-actions-end { display: contents; }
+  .jpt-actions .jpt-primary { grid-area: primary; width: 100%; height: 40px; }
+  .jpt-actions .jpt-secondary { grid-area: secondary; justify-self: end; }
+  .jpt-actions .jpt-back { grid-area: back; justify-self: start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jpt-dialog, .jpt-status .jpt-dot { animation: none; }
+  .jpt-bar, .jpt-btn, .jpt-skip { transition: none; }
+}
+.jpt-overlay .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }

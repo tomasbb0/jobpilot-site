@@ -223,8 +223,11 @@
           // Store in localStorage for website session
           localStorage.setItem("jobpilot_user", JSON.stringify(currentUser));
 
-          showLoggedIn();
-          showStatus("Signed in successfully!", "success");
+          // Signed in: go on to the settings page, where the getting-started tutorial
+          // (tutorial.js) shows how JobPilot is used through the Chrome extension
+          showStatus("Signed in. Opening your settings...", "success");
+          window.location.href = "settings.html";
+          return;
         } catch (err) {
           showStatus("Failed to sign in: " + err.message, "error");
         }
