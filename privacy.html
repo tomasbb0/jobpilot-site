@@ -36,7 +36,7 @@
       <div class="wrap wrap-narrow page-head-in">
         <p class="kicker">Legal</p>
         <h1>Privacy Policy</h1>
-        <p class="meta">Last updated: October 28, 2026</p>
+        <p class="meta">Last updated: November 4, 2026</p>
       </div>
     </div>
 
@@ -92,6 +92,100 @@
         private app folder in your own Google Drive.
       </p>
 
+      <h2 id="gmail">Gmail (optional, read-only)</h2>
+      <p>
+        JobPilot can keep your Application Tracker up to date from your Gmail. It is off until you choose
+        "Connect Gmail" on the Tracker tab and agree to the notice that appears, and you can turn it off at any time.
+      </p>
+
+      <h3>What JobPilot reads</h3>
+      <p>
+        When you connect Gmail, Google asks you to give JobPilot read-only access to your Gmail (Google shows it as
+        "View your email messages and settings"). JobPilot uses that access only to:
+      </p>
+      <ul>
+        <li>Read the address of the connected Gmail account, to show which inbox is connected and to match it with the applications you sent from it.</li>
+        <li>Search your Gmail for emails about the applications in your tracker. Each search uses the company name, and the company's web domain when JobPilot can tell it from the job link. It only looks at emails received from the day before you applied, skips emails you sent, chats, Promotions and LinkedIn and Indeed job alerts, and looks at up to 10 emails per application.</li>
+        <li>For each email it finds, read four things: the subject, the sender, the date and the short preview Gmail shows in your inbox (the first words of the message).</li>
+      </ul>
+      <p>
+        JobPilot does not download full messages or attachments, and it never sends, deletes, labels or changes any email.
+      </p>
+
+      <h3>How JobPilot uses it</h3>
+      <p>
+        JobPilot uses your Gmail data for one feature: moving each application in your tracker to its next stage
+        (Applied, Assessment, Interview, Offer or Rejected) and showing you the email that moved it, with an Undo button.
+      </p>
+      <ul>
+        <li><strong>Rules first.</strong> JobPilot's built-in rules read the subject and preview in English, Portuguese, Spanish, French and German and decide the stage when the wording is clear. This happens in your browser.</li>
+        <li><strong>Your own AI, only for unclear emails, and only if you turned on "Ask my AI about unclear emails".</strong> If you saved your own AI key in JobPilot, the emails the rules cannot decide are sent in one request to your AI provider (the one you chose in Settings: OpenAI, Anthropic or Google Gemini), using your key, straight from your browser. For each of those emails the request contains the company name and job title from your tracker, the sender, the date, the subject (up to 160 characters) and the preview (up to 280 characters). At most 20 emails are sent per check. The provider sends back only a stage and a confidence for each email. Without a key, or with this option off, nothing leaves your browser and unclear emails are left as they are.</li>
+      </ul>
+      <p>
+        Your AI provider handles that request under your own account with them and their terms. OpenAI and Anthropic
+        state that data sent through their APIs is not used to train their models unless you choose to share it.
+        <!-- choose ONE of A or B, matching the build -->
+        If you choose Google Gemini: with a free Gemini API key, Google's terms allow Google to use what is sent to improve its products; with a paid Google Cloud project it does not. JobPilot tells you this before you turn the option on.
+        Their policies:
+        <a href="https://platform.openai.com/docs/guides/your-data" target="_blank" rel="noopener">OpenAI</a>,
+        <a href="https://privacy.anthropic.com/en/articles/7996868-is-my-data-used-for-model-training" target="_blank" rel="noopener">Anthropic</a> and
+        <a href="https://ai.google.dev/gemini-api/terms" target="_blank" rel="noopener">Google</a>.
+      </p>
+      <p>
+        JobPilot checks for new emails every 6 hours while Gmail is connected, when you open the Tracker (at most once
+        every 10 minutes) and when you press Check now.
+      </p>
+
+      <h3>What JobPilot stores, and where</h3>
+      <p>
+        Your Gmail data stays in your browser. Nothing from your Gmail is sent to or stored on JobPilot or BytArc
+        servers, none of it is part of our usage analytics, and JobPilot's website cannot read it.
+      </p>
+      <ul>
+        <li>In this browser only (Chrome's extension storage on your device): the connected Gmail address; for each application, the last 5 emails that set its stage (the date, the first 90 characters of the subject, the stage, and whether your AI decided it); the IDs of emails already checked (up to 60 per application), so they are not read twice; and the time and result of the last check.</li>
+        <li>In your tracker: the new stage of an application and the date it changed. Your tracker is kept in Chrome's sync storage, so Chrome can sync it to your other Chrome browsers signed in to the same Chrome profile. If you turned on Drive sync, your tracker is also backed up to the private app folder in your own Google Drive.</li>
+        <li>Google access token: managed by Chrome. JobPilot holds it in memory only while it checks your email, never saves it, and only sends it to Google.</li>
+      </ul>
+
+      <h3>How long JobPilot keeps it</h3>
+      <p>
+        The email details listed above stay in your browser until you disconnect Gmail or remove JobPilot from Chrome.
+        Then they are deleted. The stage changes stay on your applications, as part of your tracker, until you edit or
+        delete them.
+      </p>
+
+      <h3>How to disconnect and remove access</h3>
+      <ul>
+        <li>In JobPilot: Tracker tab, Check my email, Disconnect. JobPilot revokes its Google access, deletes the email details listed above and stops checking. Revoking ends JobPilot's Google access as a whole, so Drive sync may ask for your permission again. Signing out of JobPilot also disconnects Gmail.</li>
+        <li>In your Google Account: open <a href="https://myaccount.google.com/connections" target="_blank" rel="noopener">myaccount.google.com/connections</a>, choose JobPilot and remove its access. This works even if JobPilot is no longer installed.</li>
+        <li>Removing JobPilot from Chrome deletes everything it stored in your browser. To also end its Google access, remove it in your Google Account as described above.</li>
+      </ul>
+
+      <h3>What JobPilot never does with Gmail data</h3>
+      <ul>
+        <li>It does not sell it, share it with advertisers, data brokers or information resellers, or use it for ads.</li>
+        <li>JobPilot does not use it to develop, improve or train generalized or non-personalized AI or machine learning models.</li>
+        <li>It does not use it to decide credit-worthiness or for lending.</li>
+        <li>No person at JobPilot or BytArc reads your email. We never receive it.</li>
+        <li>It uses it only for the tracker feature described above, which you can see and control in the extension.</li>
+      </ul>
+
+      <h3>Security</h3>
+      <p>
+        Gmail data travels only over encrypted HTTPS connections: to Google, and for unclear emails, to the AI provider
+        you chose. JobPilot never shares your AI keys or saved logins with any web page, including jobpilot.pt.
+      </p>
+
+      <h3>Google API Services User Data Policy</h3>
+      <p>
+        JobPilot's use and transfer to any other app of information received from Google APIs will adhere to the
+        <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" rel="noopener">Google API Services User Data Policy</a>,
+        including the Limited Use requirements. The use of information received from Google Workspace APIs, including
+        Gmail, will also adhere to the
+        <a href="https://developers.google.com/workspace/workspace-api-user-data-developer-policy" target="_blank" rel="noopener">Google Workspace API User Data and Developer Policy</a>,
+        including the Limited Use requirements.
+      </p>
+
       <h2>Usage Analytics</h2>
       <p>
         JobPilot sends usage analytics to PostHog, an analytics service hosted in
@@ -102,11 +196,11 @@
         <li>A random ID created when you install JobPilot</li>
         <li>Your operating system, browser, screen size and extension version</li>
         <li>Events such as opening the extension, a job page being detected (with the site's domain), autofill, cover letter and chat actions, Jobs4U searches (including your search keywords) and errors (with the error message)</li>
-        <li>If you sign in with Google: your account's email address, name and sign-in provider, linked to your analytics ID</li>
+        <li>If you sign in: that you signed in and with which provider (for example Google). Not your email address, your name or your account ID.</li>
       </ul>
       <p>
-        JobPilot does not send your CV, the answers it fills in, your cover letters
-        or your API keys to PostHog.
+        JobPilot does not send your CV, the answers it fills in, your cover letters,
+        your API keys or any Gmail data to PostHog.
       </p>
 
       <h2>Data Sharing</h2>
