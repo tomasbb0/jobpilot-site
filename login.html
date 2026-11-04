@@ -4,11 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Log in to JobPilot AI</title>
+    <meta name="description" content="Log in to JobPilot AI to sync your profile and documents across devices." />
+    <link rel="canonical" href="https://jobpilot.pt/login.html" />
     <meta name="theme-color" content="#0A0A0B" />
-    <link rel="icon" href="brand/favicon.ico" sizes="any" />
-    <link rel="icon" href="brand/favicon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="brand/apple-touch-icon.png" />
-    <link rel="manifest" href="site.webmanifest" />
+    <link rel="icon" href="/favicon.ico?v=3" sizes="any" />
+    <link rel="icon" href="/brand/favicon.svg?v=3" type="image/svg+xml" />
+    <link rel="icon" href="/brand/favicon-96.png?v=3" type="image/png" sizes="96x96" />
+    <link rel="icon" href="/brand/favicon-48.png?v=3" type="image/png" sizes="48x48" />
+    <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png?v=3" />
+    <link rel="manifest" href="/site.webmanifest?v=3" />
     <link rel="preload" href="fonts/Geist-Variable-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="site.css?v=2" />
       <meta name="author" content="BytArc" />
@@ -93,7 +97,7 @@
           </form>
 
           <p class="auth-footer">
-            Don't have an account? <a href="login.html?mode=signup">Sign up</a>
+            Don't have an account? <a href="signup.html">Sign up</a>
           </p>
 
           <div class="info-box">
@@ -151,7 +155,7 @@
 
       // Check URL params for mode
       const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.get("mode") === "signup") {
+      if (urlParams.get("mode") === "signup" || location.pathname.endsWith("/signup.html")) {
         document.querySelector(".auth-card h1").textContent =
           "Create your account";
         document.querySelector(".auth-card .subtitle").textContent =

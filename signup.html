@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign up for JobPilot AI</title>
+    <meta name="description" content="Create your free JobPilot AI account to sync your profile and documents across devices." />
+    <link rel="canonical" href="https://jobpilot.pt/signup.html" />
+    <meta name="theme-color" content="#0A0A0B" />
+    <link rel="icon" href="/favicon.ico?v=3" sizes="any" />
+    <link rel="icon" href="/brand/favicon.svg?v=3" type="image/svg+xml" />
+    <link rel="icon" href="/brand/favicon-96.png?v=3" type="image/png" sizes="96x96" />
+    <link rel="icon" href="/brand/favicon-48.png?v=3" type="image/png" sizes="48x48" />
+    <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png?v=3" />
+    <link rel="manifest" href="/site.webmanifest?v=3" />
+    <link rel="preload" href="fonts/Geist-Variable-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="site.css?v=2" />
+      <meta name="author" content="BytArc" />
+</head>
+  <body class="auth-page">
+    <!-- NAV: the black top area -->
+    <div class="auth-top dark">
+      <header class="nav">
+        <div class="wrap nav-in">
+          <span class="brand-lockup"><a href="index.html" class="brand" aria-label="JobPilot AI home">
+            <img src="brand/jobpilot-mark-white.svg" width="27" height="18" alt="" />
+            <span>JobPilot AI</span>
+          </a><a class="by-bytarc" href="https://bytarc.com/" target="_blank" rel="noopener" title="BytArc, an AI studio in Lisbon">by BytArc</a></span>
+          <a href="index.html" class="nav-back">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7" /><path d="M19 12H5" /></svg>
+            Back to home
+          </a>
+        </div>
+      </header>
+    </div>
+
+    <!-- AUTH -->
+    <main class="auth-main">
+      <div class="auth-card">
+        <!-- Login form (shown when logged out) -->
+        <div id="loginView">
+          <img class="auth-mark" src="brand/jobpilot-mark.svg" width="36" height="24" alt="" />
+          <h1>Create your account</h1>
+          <p class="subtitle">Sign up to sync your profile across devices.</p>
+
+          <div id="authStatus" class="auth-status"></div>
+
+          <!-- Google Sign-In -->
+          <button
+            id="googleBtn"
+            class="btn-google"
+            onclick="signInWithGoogle()"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                fill="#4285F4"
+                d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1z"
+              />
+              <path
+                fill="#34A853"
+                d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+              />
+              <path
+                fill="#FBBC05"
+                d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+              />
+              <path
+                fill="#EA4335"
+                d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+              />
+            </svg>
+            Continue with Google
+          </button>
+
+          <div class="divider">or sign in with email</div>
+
+          <form class="auth-form" onsubmit="signInWithEmail(event)">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              placeholder="you@example.com"
+              required
+              autocomplete="email"
+            />
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              placeholder="Your password"
+              required
+              autocomplete="current-password"
+            />
+            <button type="submit" class="btn btn-primary btn-block" id="emailBtn">
+              Sign In
+            </button>
+          </form>
+
+          <p class="auth-footer">
+            Don't have an account? <a href="signup.html">Sign up</a>
+          </p>
+
+          <div class="info-box">
+            <strong>Already using the extension?</strong>
+            If you signed in through the extension popup, your session already
+            syncs through Chrome. Sign in here only to manage your account.
+          </div>
+        </div>
+
+        <!-- Logged-in state -->
+        <div id="loggedInView" class="logged-in">
+          <img id="userAvatar" class="avatar" src="" alt="" />
+          <div id="userName" class="name"></div>
+          <div id="userEmail" class="email"></div>
+          <div class="sync-badge">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>
+            Synced with the Chrome extension
+          </div>
+          <button class="btn btn-primary btn-block" onclick="goToWebSettings()">
+            Open Web Settings
+          </button>
+          <button class="btn btn-secondary btn-block" onclick="goToExtension()">
+            View on Chrome Web Store
+          </button>
+          <button class="btn btn-quiet btn-block" onclick="signOut()">Sign Out</button>
+        </div>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="foot solid">
+      <div class="wrap foot-in">
+        <p class="foot-copy">
+          <img src="brand/jobpilot-mark-white.svg" width="22" height="15" alt="" />
+          <span>&copy; 2026 JobPilot AI &middot; <a href="https://bytarc.com/" target="_blank" rel="noopener" title="BytArc, an AI studio in Lisbon">by BytArc</a></span>
+        </p>
+        <nav class="foot-links" aria-label="Footer">
+          <a href="privacy.html">Privacy</a>
+          <a href="support.html">Support</a>
+          <a href="https://github.com/tomasbb0/job-autofill-extension" target="_blank" rel="noopener">GitHub</a>
+        </nav>
+      </div>
+    </footer>
+
+    <!-- Google Identity Services -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <script>
+      // OAuth Client ID (web client — needs to be configured in Google Cloud Console)
+      const GOOGLE_CLIENT_ID =
+        "946736931967-dhg3dfluros2qcjp3u1k779l9lk6jt3v.apps.googleusercontent.com";
+
+      // State
+      let currentUser = null;
+
+      // Check URL params for mode
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get("mode") === "signup" || location.pathname.endsWith("/signup.html")) {
+        document.querySelector(".auth-card h1").textContent =
+          "Create your account";
+        document.querySelector(".auth-card .subtitle").textContent =
+          "Sign up to sync your profile and unlock Pro features";
+        document.getElementById("emailBtn").textContent = "Create Account";
+        document.querySelector(".auth-footer").innerHTML =
+          'Already have an account? <a href="login.html">Sign in</a>';
+      }
+
+      // Google Sign-In
+      function signInWithGoogle() {
+        const btn = document.getElementById("googleBtn");
+        btn.disabled = true;
+        btn.textContent = "Signing in...";
+
+        try {
+          const client = google.accounts.oauth2.initTokenClient({
+            client_id: GOOGLE_CLIENT_ID,
+            scope: "email profile",
+            callback: handleGoogleToken,
+          });
+          client.requestAccessToken();
+        } catch (err) {
+          showStatus(
+            "Google Sign-In not available. Please try again or use email.",
+            "error",
+          );
+          btn.disabled = false;
+          btn.innerHTML =
+            '<svg viewBox="0 0 24 24" width="18" height="18"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg> Continue with Google';
+        }
+      }
+
+      async function handleGoogleToken(tokenResponse) {
+        if (tokenResponse.error) {
+          showStatus("Sign-in cancelled or failed.", "error");
+          resetGoogleBtn();
+          return;
+        }
+
+        try {
+          // Get user info from Google
+          const resp = await fetch(
+            "https://www.googleapis.com/oauth2/v2/userinfo",
+            {
+              headers: {
+                Authorization: `Bearer ${tokenResponse.access_token}`,
+              },
+            },
+          );
+
+          if (!resp.ok) throw new Error("Failed to fetch user info");
+
+          const userInfo = await resp.json();
+          currentUser = {
+            uid: userInfo.id,
+            email: userInfo.email,
+            displayName: userInfo.name,
+            photoURL: userInfo.picture,
+            provider: "google",
+            signedInAt: Date.now(),
+            accessToken: tokenResponse.access_token,
+          };
+
+          // Store in localStorage for website session
+          localStorage.setItem("jobpilot_user", JSON.stringify(currentUser));
+
+          showLoggedIn();
+          showStatus("Signed in successfully!", "success");
+        } catch (err) {
+          showStatus("Failed to sign in: " + err.message, "error");
+        }
+
+        resetGoogleBtn();
+      }
+
+      function resetGoogleBtn() {
+        const btn = document.getElementById("googleBtn");
+        btn.disabled = false;
+        btn.innerHTML =
+          '<svg viewBox="0 0 24 24" width="18" height="18"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg> Continue with Google';
+      }
+
+      // Email sign-in (placeholder — extend with your auth backend)
+      function signInWithEmail(e) {
+        e.preventDefault();
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        // For now, show a message directing to Google sign-in
+        // Replace with actual email auth when backend is ready
+        showStatus(
+          "Email authentication coming soon. Please use Google Sign-In for now.",
+          "error",
+        );
+      }
+
+      // Show logged-in view
+      function showLoggedIn() {
+        document.getElementById("loginView").style.display = "none";
+        const view = document.getElementById("loggedInView");
+        view.style.display = "block";
+
+        if (currentUser.photoURL) {
+          document.getElementById("userAvatar").src = currentUser.photoURL;
+        }
+        document.getElementById("userName").textContent =
+          currentUser.displayName || "User";
+        document.getElementById("userEmail").textContent = currentUser.email;
+      }
+
+      // Sign out
+      function signOut() {
+        currentUser = null;
+        localStorage.removeItem("jobpilot_user");
+        document.getElementById("loginView").style.display = "";
+        document.getElementById("loggedInView").style.display = "none";
+        document.getElementById("authStatus").className = "auth-status";
+        document.getElementById("authStatus").style.display = "none";
+      }
+
+      // Open extension settings
+      function goToWebSettings() {
+        window.open("https://jobpilot.pt/settings.html", "_blank");
+      }
+
+      function goToExtension() {
+        // Can't open chrome-extension:// from web pages, so direct user
+        // to click the extension icon or open the CWS listing
+        window.open(
+          "https://chrome.google.com/webstore/detail/kbmpbhhhdojgjnpfpnoehafmllfejgll",
+          "_blank",
+        );
+      }
+
+      // Status messages
+      function showStatus(msg, type) {
+        const el = document.getElementById("authStatus");
+        el.textContent = msg;
+        el.className = "auth-status " + type;
+      }
+
+      // Check for existing session on load
+      document.addEventListener("DOMContentLoaded", () => {
+        const saved = localStorage.getItem("jobpilot_user");
+        if (saved) {
+          try {
+            currentUser = JSON.parse(saved);
+            showLoggedIn();
+          } catch (e) {
+            localStorage.removeItem("jobpilot_user");
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
