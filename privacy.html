@@ -226,9 +226,48 @@
         had switched analytics off, nothing is sent. The page uses no cookies.
       </p>
 
+      <h2 id="website">This Website</h2>
+      <p>
+        This section covers the public pages of jobpilot.pt: the home, download,
+        support, privacy, terms and plugin privacy pages. The sign-in, sign-up,
+        settings and uninstall pages use neither of the tools below.
+      </p>
+      <h3>Anonymous page views and clicks</h3>
+      <p>
+        We use PostHog to count page views and clicks on the Chrome Web Store
+        links. These run for everyone, with no bar to accept. They use no
+        cookies and store no IDs: the counting lives in the page's memory and
+        is gone when the page closes, so we cannot follow you from page to page
+        or recognise you tomorrow. No personal analytics profile is created.
+      </p>
+      <h3 id="recording">Session recordings</h3>
+      <p>
+        <strong>Off unless you press "I agree".</strong> If you ignore the bar,
+        nothing is recorded and the site works exactly the same.
+      </p>
+      <p>
+        If you agree, PostHog records your visit so we can see where pages
+        confuse people: the pages you open, scrolling, clicks, mouse movement
+        and what the page shows.
+      </p>
+      <ul>
+        <li>Typed text stays hidden. Every input is masked, and anything we mark as private is left out.</li>
+        <li>Panels from the JobPilot extension are left out too. Other extensions that add things to a page could still appear.</li>
+        <li>We save your choice in this browser, so we do not ask again. While recording is on, a temporary recording ID also sits in this tab and goes when you close it. No cookies either way.</li>
+        <li>Recordings are kept by PostHog in the United States, until the retention period on our PostHog plan ends.</li>
+        <li>Recordings never run in the extension or on application forms.</li>
+      </ul>
+      <div id="replayControl" style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:18px 0"><p style="margin:0">Recording is off in this browser.</p></div>
+      <p>
+        To delete a recording of you, write to
+        <a href="mailto:support@jobpilot.pt">support@jobpilot.pt</a> with
+        roughly when you visited.
+      </p>
+
       <h2>Data Sharing</h2>
       <p>
-        We do not sell your data. Usage analytics are processed by PostHog for us.
+        We do not sell your data. Usage analytics, website analytics and any
+        session recordings you agree to are processed by PostHog for us.
         AI requests go to the provider you choose, with your own key. Drive sync,
         if you turn it on, stores your data in your own Google Drive.
       </p>
@@ -290,5 +329,6 @@
         </nav>
       </div>
     </footer>
+    <script src="analytics.js" defer></script>
   </body>
 </html>
