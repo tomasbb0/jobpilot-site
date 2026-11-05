@@ -36,7 +36,7 @@
       <div class="wrap wrap-narrow page-head-in">
         <p class="kicker">Legal</p>
         <h1>Privacy Policy</h1>
-        <p class="meta">Last updated: November 4, 2026</p>
+        <p class="meta">Last updated: November 5, 2026</p>
       </div>
     </div>
 
@@ -63,7 +63,7 @@
       </p>
       <ul>
         <li>Profile information you enter (name, email, phone, etc.)</li>
-        <li>Your AI provider API keys (OpenAI, Anthropic or Google Gemini), if you use AI features</li>
+        <li>Your AI provider API keys (OpenAI, Anthropic or Google Gemini), if you use AI features. From JobPilot 3.2 they are kept on this device only (not in Chrome sync) and the scripts JobPilot runs on web pages never get them.</li>
         <li>CV/Resume files you upload</li>
         <li>Custom parameters you create</li>
         <li>Extension settings and preferences</li>
@@ -89,7 +89,9 @@
       </p>
       <p>
         If you sign in with Google and turn on sync, your profile is backed up to a
-        private app folder in your own Google Drive.
+        private app folder in your own Google Drive. From JobPilot 3.2 the backup never
+        includes your API keys, saved sign-in details or equal-opportunity answers (such as
+        gender, ethnicity, veteran or disability status).
       </p>
 
       <h2 id="gmail">Gmail (optional, read-only)</h2>
@@ -186,21 +188,42 @@
         including the Limited Use requirements.
       </p>
 
-      <h2>Usage Analytics</h2>
+      <h2 id="analytics">Usage Analytics</h2>
       <p>
         JobPilot sends usage analytics to PostHog, an analytics service hosted in
-        the United States. It helps us see which features are used and spot errors.
-        Analytics include:
+        the United States. It helps us see which features help and spot errors.
+        You can switch analytics off at any time: in the extension, Settings,
+        "Anonymous usage stats", or on the welcome page that opens after you install.
       </p>
+      <h3>JobPilot 3.2 and later</h3>
+      <ul>
+        <li>Only counts and fixed codes. For example: a form was filled, how many fields were filled and left, which kind of application system the page uses (for example Workday or Greenhouse, never the employer's own address), which setup step you saw, which built-in personality you picked, and error codes.</li>
+        <li>A random ID created on your device, so events from one installation can be counted together. Switching analytics off stops all sending and deletes this ID.</li>
+        <li>Your operating system, browser and extension version.</li>
+        <li>Never: your CV or profile, the answers JobPilot fills in, your cover letters, company names, job titles, the questions on application forms, page addresses, search keywords, error messages from AI providers, your API keys or any Gmail data.</li>
+        <li>No personal analytics profile is created, and test or development builds send nothing.</li>
+      </ul>
+      <h3>JobPilot 3.1 and earlier</h3>
       <ul>
         <li>A random ID created when you install JobPilot</li>
         <li>Your operating system, browser, screen size and extension version</li>
-        <li>Events such as opening the extension, a job page being detected (with the site's domain), autofill, cover letter and chat actions, Jobs4U searches (including your search keywords) and errors (with the error message)</li>
+        <li>Events such as opening the extension, a job page being detected (with the site's domain), autofill, cover letter and chat actions (which can include the company name and the text of a form question), Jobs4U searches (including your search keywords) and errors (with the error message)</li>
         <li>If you sign in: that you signed in and with which provider (for example Google). Not your email address, your name or your account ID.</li>
       </ul>
       <p>
-        JobPilot does not send your CV, the answers it fills in, your cover letters,
-        your API keys or any Gmail data to PostHog.
+        No version sends your CV, the answers it fills in, your cover letters,
+        your API keys or any Gmail data to PostHog. Updating to JobPilot 3.2 adds the
+        switch and the stricter rules above.
+      </p>
+
+      <h3 id="uninstall">If you uninstall JobPilot</h3>
+      <p>
+        From JobPilot 3.2, Chrome opens
+        <a href="bye.html">jobpilot.pt/bye</a>, a short page that asks why you left.
+        Its address carries only the version number (and whether analytics were off),
+        never an ID. If you tap a reason, that reason and the version are sent to
+        PostHog as one anonymous event with a throwaway ID that is not kept. If you
+        had switched analytics off, nothing is sent. The page uses no cookies.
       </p>
 
       <h2>Data Sharing</h2>

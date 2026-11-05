@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JobPilot is uninstalled</title>
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#0A0A0B" />
+    <link rel="icon" href="/favicon.ico?v=3" sizes="any" />
+    <link rel="icon" href="/brand/favicon.svg?v=3" type="image/svg+xml" />
+    <link rel="icon" href="/brand/favicon-96.png?v=3" type="image/png" sizes="96x96" />
+    <link rel="icon" href="/brand/favicon-48.png?v=3" type="image/png" sizes="48x48" />
+    <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png?v=3" />
+    <link rel="manifest" href="/site.webmanifest?v=3" />
+    <link rel="preload" href="fonts/Geist-Variable-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&display=swap" />
+    <link rel="stylesheet" href="site.css?v=2" />
+      <meta name="author" content="BytArc" />
+    <style>
+      .bye { padding: 56px 0 104px; }
+      .bye-reasons { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+      .bye-reasons .btn { justify-content: flex-start; height: auto; min-height: 52px; padding: 12px 18px; text-align: left; white-space: normal; }
+      .bye-thanks h2 { font-size: 26px; letter-spacing: -.02em; }
+      .bye-thanks p { margin-top: 12px; color: var(--ink-4); font-size: 16px; }
+      .bye-note { margin-top: 40px; color: var(--grey); font-size: 14px; line-height: 1.6; }
+      .bye-note a { color: var(--ink-4); }
+      @media (max-width: 640px) { .bye-reasons { grid-template-columns: 1fr; } }
+    </style>
+</head>
+  <body>
+    <!-- NAV + TITLE: the black top area -->
+    <div class="dark page-head">
+      <header class="nav">
+        <div class="wrap nav-in">
+          <span class="brand-lockup"><a href="index.html" class="brand" aria-label="JobPilot AI home">
+            <img src="brand/jobpilot-mark-white.svg" width="27" height="18" alt="" />
+            <span>JobPilot AI</span>
+          </a><a class="by-bytarc" href="https://bytarc.com/" target="_blank" rel="noopener" title="BytArc, an AI studio in Lisbon">by BytArc</a></span>
+          <a href="index.html" class="nav-back">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7" /><path d="M19 12H5" /></svg>
+            Back to home
+          </a>
+        </div>
+      </header>
+      <div class="wrap wrap-narrow page-head-in">
+        <p class="kicker">Uninstalled</p>
+        <h1>Sorry to see you go.</h1>
+        <p>One tap tells us why. It is anonymous: no ID, nothing about you or the jobs you applied to.</p>
+      </div>
+    </div>
+
+    <main class="wrap wrap-narrow bye">
+      <div id="reasons" class="bye-reasons" role="group" aria-label="Why did you uninstall JobPilot?">
+        <button class="btn btn-secondary" type="button" data-r="didnt_fill_my_site">It didn't fill my job site</button>
+        <button class="btn btn-secondary" type="button" data-r="found_a_job">I found a job</button>
+        <button class="btn btn-secondary" type="button" data-r="setup_too_much">Setting it up was too much work</button>
+        <button class="btn btn-secondary" type="button" data-r="needs_ai_key">I wanted AI without my own key</button>
+        <button class="btn btn-secondary" type="button" data-r="too_many_buttons">Too many buttons on pages</button>
+        <button class="btn btn-secondary" type="button" data-r="privacy">Privacy concerns</button>
+        <button class="btn btn-secondary" type="button" data-r="other">Something else</button>
+      </div>
+      <div id="thanks" class="bye-thanks" hidden>
+        <h2>Thank you. That helps.</h2>
+        <p>Good luck with the search. If you change your mind, JobPilot is one click away.</p>
+        <p><a class="btn btn-primary" href="https://chromewebstore.google.com/detail/kbmpbhhhdojgjnpfpnoehafmllfejgll" id="reinstall">Reinstall JobPilot</a></p>
+      </div>
+      <p class="bye-note">Your JobPilot profile and CV were kept in your browser, and Chrome removed them with the extension. A Google Drive backup, if you turned one on, stays in your own Drive.
+        Questions? <a href="mailto:support@jobpilot.pt">support@jobpilot.pt</a>. <a href="privacy.html#uninstall">How this page works</a>.</p>
+    </main>
+
+    <footer class="foot solid">
+      <div class="wrap foot-in">
+        <p class="foot-copy">
+          <img src="brand/jobpilot-mark-white.svg" width="22" height="15" alt="" />
+          <span>&copy; 2026 JobPilot AI &middot; <a href="https://bytarc.com/" target="_blank" rel="noopener" title="BytArc, an AI studio in Lisbon">by BytArc</a></span>
+        </p>
+        <nav class="foot-links" aria-label="Footer">
+          <a href="download.html">Download</a>
+          <a href="signup.html">Sign up</a>
+          <a href="support.html">Support</a>
+          <a href="privacy.html">Privacy</a>
+          <a href="https://github.com/tomasbb0/job-autofill-extension" target="_blank" rel="noopener">GitHub</a>
+        </nav>
+      </div>
+    </footer>
+    <script src="bye.js"></script>
+  </body>
+</html>
