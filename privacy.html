@@ -36,7 +36,7 @@
       <div class="wrap wrap-narrow page-head-in">
         <p class="kicker">Legal</p>
         <h1>Privacy Policy</h1>
-        <p class="meta">Last updated: November 5, 2026</p>
+        <p class="meta">Last updated: November 6, 2026</p>
       </div>
     </div>
 
@@ -44,8 +44,9 @@
       <h2>Overview</h2>
       <p>
         JobPilot AI keeps your job search in your browser. This page explains
-        what stays on your device, what goes to the AI provider you choose, and
-        the usage analytics we collect.
+        what stays on your device, what goes to the AI provider you choose, the
+        usage analytics we collect, and what the community server holds if you
+        use Community Personalities.
       </p>
 
       <h2>Data Collection</h2>
@@ -58,8 +59,10 @@
 
       <h2>What Data is Stored Locally</h2>
       <p>
-        The following information is stored in your browser (not on our
-        servers):
+        The following information is stored in your browser. It is not sent to
+        JobPilot, except the community personalities you choose to publish and
+        your votes and reports, described in
+        <a href="#community">Community Personalities</a> below.
       </p>
       <ul>
         <li>Profile information you enter (name, email, phone, etc.)</li>
@@ -67,6 +70,7 @@
         <li>CV/Resume files you upload</li>
         <li>Custom parameters you create</li>
         <li>Extension settings and preferences</li>
+        <li>Pilot's personalities: the ones in your menu, your favourites, the ones you made (private ones stay here only), the Show NSFW setting, and a random install ID used for community votes</li>
       </ul>
 
       <h2>Third-Party Services</h2>
@@ -92,6 +96,11 @@
         private app folder in your own Google Drive. From JobPilot 3.2 the backup never
         includes your API keys, saved sign-in details or equal-opportunity answers (such as
         gender, ethnicity, veteran or disability status).
+      </p>
+      <p>
+        From JobPilot 3.2, about every 30 minutes JobPilot checks
+        community.jobalfred.com for updated rules about application forms. The
+        request sends no personal data, no ID and no cookies.
       </p>
 
       <h2 id="gmail">Gmail (optional, read-only)</h2>
@@ -226,6 +235,66 @@
         had switched analytics off, nothing is sent. The page uses no cookies.
       </p>
 
+      <h2 id="community">Community Personalities</h2>
+      <p>
+        From JobPilot 3.2, Pilot can talk as personalities made by other JobPilot
+        users, and you can share your own. This is the only part of JobPilot where
+        anything you create reaches a JobPilot server (the community server, run by
+        BytArc on Cloudflare). Site rules and the job index, described elsewhere on
+        this page, only download public files.
+      </p>
+      <h3>What the community server receives</h3>
+      <ul>
+        <li>When you publish a personality: its name, a one-line description, the prompt you wrote, its starter line, icon, eye style, and the author name you type (optional). You choose to publish; private personalities never leave your browser.</li>
+        <li>When you vote or report: which personality, your choice (vote, or the report reason and an optional note), and a random install ID that JobPilot created when you first used the community. The install ID is not linked to your name, email, Google account or anything else.</li>
+        <li>When you open the community list or the Top 3: a request for the list, with the same install ID so your own votes show as yours.</li>
+      </ul>
+      <h3>What it never receives</h3>
+      <p>
+        Your profile, CV, cover letters, answers, saved logins, AI keys, Gmail data,
+        the pages you visit, or your private personalities.
+      </p>
+      <h3>What it stores</h3>
+      <p>
+        Published personalities with their vote count and NSFW label; a hash of each
+        personality's edit token (only your browser keeps the token, so only you can
+        edit or unpublish it); one entry per vote and per report, keyed by a salted
+        hash of the install ID, never the ID itself; a daily publish counter that
+        deletes itself after two days. Your IP address is used only to limit abuse, and
+        never stored as it is or logged: for the limits on publishing, voting and
+        reporting, a hash of it that changes every day is kept for at most about two
+        hours.
+      </p>
+      <h3>Moderation</h3>
+      <p>
+        Every published personality gets an NSFW label (swearing or content not fit for
+        minors), first from a word list on the server and, when enabled, from OpenAI's
+        moderation service, which receives the text of the personality being published.
+        Personalities with hate, threats or other harmful content are refused. You can
+        report a personality; after several reports it is hidden until JobPilot reviews
+        it.
+      </p>
+      <h3>Where</h3>
+      <p>
+        On Cloudflare, with the database stored in the European Union. Your requests
+        reach the Cloudflare data center nearest you and travel over HTTPS. Cloudflare
+        processes them as JobPilot's hosting provider.
+      </p>
+      <h3>How long</h3>
+      <p>
+        A personality stays until you unpublish it (in the Personality Manager, under
+        Mine) or JobPilot removes it; unpublishing deletes it with its votes and
+        reports. Your vote stays until you take it back. Reports are deleted when
+        JobPilot reviews them.
+      </p>
+      <h3>Your choices</h3>
+      <p>
+        You never have to use the community. Keep personalities private, take back a
+        vote by tapping it again, and unpublish what you shared at any time. To ask
+        JobPilot to delete community data tied to your install, contact us (see Contact)
+        with the personality name.
+      </p>
+
       <h2 id="website">This Website</h2>
       <p>
         This section covers the public pages of jobpilot.pt: the home, download,
@@ -270,6 +339,21 @@
         session recordings you agree to are processed by PostHog for us.
         AI requests go to the provider you choose, with your own key. Drive sync,
         if you turn it on, stores your data in your own Google Drive.
+      </p>
+      <p>
+        Community personalities you publish are public: anyone using JobPilot can see
+        and use them. When moderation is on, their text goes to OpenAI for the NSFW
+        check.
+      </p>
+      <p>
+        When you run a job search, JobPilot reads public job data from your browser: its
+        public job lists (hosted on GitHub), its job index (community.jobalfred.com) and
+        the job sites of employers and hiring systems such as Greenhouse, Lever, Ashby,
+        Workday, Amazon, Google, Apple, Microsoft, Netflix and Shopify. Some of these
+        sites are searched by word, so the role and place words in your filters can reach
+        them, along with your IP address, as with any web request. Your CV and profile are
+        not sent in these requests. The search itself uses no AI. If you turn on "Also
+        search the web with my AI", your filters go to your own AI provider.
       </p>
 
       <h2>Data Security</h2>
