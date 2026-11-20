@@ -36,7 +36,7 @@
       <div class="wrap wrap-narrow page-head-in">
         <p class="kicker">Legal</p>
         <h1>Privacy Policy</h1>
-        <p class="meta">Last updated: November 6, 2026</p>
+        <p class="meta">Last updated: November 20, 2026</p>
       </div>
     </div>
 
@@ -49,8 +49,9 @@
       <p>
         JobPilot AI keeps your job search in your browser. This page explains
         what stays on your device, what goes to the AI provider you choose, the
-        usage analytics we collect, and what the community server holds if you
-        use Community Personalities.
+        optional JobAlfred account and JobAlfred AI, the usage analytics we
+        collect, and what the community server holds if you use Community
+        Personalities.
       </p>
 
       <h2>Data Collection</h2>
@@ -75,12 +76,13 @@
         <li>Custom parameters you create</li>
         <li>Extension settings and preferences</li>
         <li>Pilot's personalities: the ones in your menu, your favourites, the ones you made (private ones stay here only), the Show NSFW setting, and a random install ID used for community votes</li>
+        <li>From JobAlfred 4.0: the cover letter style notes Alfred learns from your edits (see <a href="#account">JobAlfred account and JobAlfred AI</a>), and, if you sign in, your JobAlfred sign-in tokens, kept in the extension's own storage and never given to web pages</li>
       </ul>
 
       <h2>Third-Party Services</h2>
       <p>
-        If you turn on AI features, the extension talks directly to the AI
-        provider you choose (OpenAI, Anthropic or Google) with your own API key.
+        If you use AI features with your own API key, the extension talks
+        directly to the AI provider you choose (OpenAI, Anthropic or Google).
         This includes:
       </p>
       <ul>
@@ -105,6 +107,29 @@
         From JobPilot 3.2, about every 30 minutes JobPilot checks
         community.jobalfred.com for updated rules about application forms. The
         request sends no personal data, no ID and no cookies.
+      </p>
+
+      <h2 id="account">JobAlfred account and JobAlfred AI (optional, from JobAlfred 4.0)</h2>
+      <p>
+        Autofill, the tracker and job search need no account. A JobAlfred account
+        is optional: it holds AI credits and plans, and lets Alfred write answers
+        with JobAlfred AI instead of your own AI key. This service is provided by
+        Tom&aacute;s Maria Burnay Batalha, trading as BytArc, who decides how this
+        data is used.
+      </p>
+      <ul>
+        <li><strong>Signing in.</strong> You sign in with Google on jobalfred.com. We keep your Google account ID, your email address, your name and language as Google shares them, your referral code, and the dates you signed up and first used a feature. A Cloudflare Turnstile check protects the sign-in.</li>
+        <li><strong>Credits.</strong> Your account keeps your credit balance and a record of each AI use: which feature, how many credits and when. An application is identified by a hashed code, so this record holds no company name or job link. To limit free welcome credits per network, we keep salted hashes of your IP address and network for a day.</li>
+        <li><strong>JobAlfred AI.</strong> When JobAlfred AI writes for you, the extension sends JobAlfred's server only what that answer needs: the question, the job's title, company and description, the language, and a short summary of your profile (your name, city and country, roles, education, skills and CV text). Your email, phone number and links are removed from it, and salary, work authorisation and equal-opportunity answers are never sent. The server passes this to the AI provider and returns text. Each answer is kept for 7 days, so that a retried request is not charged twice, and then deleted. JobAlfred AI runs on Cloudflare Workers AI. On paid plans you can choose the Best model, which runs on Amazon Bedrock, and Amazon may process that request outside the European Union.</li>
+        <li><strong>Cover letters that learn.</strong> When you edit a cover letter Alfred wrote and then copy, download, attach or send it, Alfred compares its draft with your version on your device and keeps short style notes, such as "Keep the opening to one sentence". The notes stay in this browser, not in Chrome sync or your Drive backup, and the copies kept for this are deleted once compared. Up to 8 notes go with each new cover letter request, as style preferences. If JobAlfred AI wrote the letter, one request also sends the changed lines, with email addresses, links and phone numbers removed, to JobAlfred's server to name those notes. You can turn this off, edit a note or clear them all in Settings, Cover letters.</li>
+        <li><strong>Payments.</strong> Plans and credits are bought on jobalfred.com through Stripe Checkout, and Link, by Stripe, is the merchant of record. Card details go to Stripe and Link, never to us. We receive the order: the product, the amount, its status and the email for the receipt.</li>
+        <li><strong>Server analytics.</strong> The server records anonymous events, such as a completed sign-in or an AI answer, with no email, no name and no person profile.</li>
+      </ul>
+      <p>
+        You can delete your account on your account page at jobalfred.com/account/.
+        That removes your email, name and credits, signs you out everywhere and
+        cancels any plan. A record that the account existed, without your email or
+        name, and your orders stay, as tax law and fraud checks require.
       </p>
 
       <h2 id="gmail">Gmail (optional, read-only)</h2>
@@ -341,7 +366,10 @@
       <p>
         We do not sell your data. Usage analytics, website analytics and any
         session recordings you agree to are processed by PostHog for us.
-        AI requests go to the provider you choose, with your own key. Drive sync,
+        AI requests with your own key go to the provider you choose. If you use a
+        JobAlfred account, Cloudflare hosts it and runs JobAlfred AI and the
+        sign-in check, Amazon Web Services runs the Best model, Google handles
+        the sign-in, and Stripe and Link handle payments. Drive sync,
         if you turn it on, stores your data in your own Google Drive.
       </p>
       <p>
@@ -385,6 +413,10 @@
         <li>
           <strong>Export:</strong> Your data is accessible in Chrome's local
           storage
+        </li>
+        <li>
+          <strong>Your JobAlfred account:</strong> delete it on jobalfred.com/account/,
+          or write to us to see, correct or delete what the account holds
         </li>
       </ul>
 
